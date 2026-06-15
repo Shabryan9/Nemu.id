@@ -44,43 +44,43 @@ body { background-color: var(--cream); }
 /* Card hover */
 .card-hover:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.2s; }
 
-
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #ffffff !important;
-      letter-spacing: 0.5px;
-    }
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+}
  
-    .navbar-custom {
-      background-color: #1a3a8f;
-    }
+.navbar-custom {
+    background-color: #1a3a8f;
+}
  
-    .navbar-custom .nav-link {
-      color: #ffffff !important;
-      font-size: 0.95rem;
-      font-weight: 500;
-      padding-bottom: 4px;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.2s;
-    }
+.navbar-custom .nav-link {
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
  
-    .navbar-custom .nav-link.active,
-    .navbar-custom .nav-link:hover {
-      border-bottom: 2px solid #ffffff;
-    }
+.navbar-custom .nav-link.active,
+.navbar-custom .nav-link:hover {
+    border-bottom: 2px solid #ffffff;
+}
  
-    .btn-masuk {
-      border: 1.5px solid #ffffff;
-      color: #ffffff;
-      background: transparent;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      padding: 4px 18px;
-      transition: background 0.2s, color 0.2s;
-    }
+.btn-masuk {
+    border: 1.5px solid #ffffff;
+    color: #ffffff;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    padding: 4px 18px;
+    transition: background 0.2s, color 0.2s;
+}
  
-    .btn-masuk:hover {
-      background: #ffffff;
-      color: #1a3a8f;
-    }
+.btn-masuk:hover {
+    background: #ffffff;
+    color: #1a3a8f;
+}
+ 
