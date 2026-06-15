@@ -1,3 +1,6 @@
+/* ========================================
+   COLOR VARIABLES
+   ======================================== */
 :root {
     --navy: #1E3A8A;
     --cream: #FFF8EC;
@@ -6,22 +9,46 @@
     --danger: #EF4444;
 }
 
-body { background-color: var(--cream); }
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+body {
+    background-color: var(--cream);
+}
 
-.bg-navy { background-color: var(--navy) !important; }
+/* ========================================
+   BACKGROUND & TEXT UTILITIES
+   ======================================== */
+/* General background colors */
+.bg-navy {
+    background-color: var(--navy) !important;
+}
 
-.bg-cream { background-color: var(--cream) !important; }
+.bg-cream {
+    background-color: var(--cream) !important;
+}
 
-.text-navy { color: var(--navy) !important; }
+/* General text colors */
+.text-navy {
+    color: var(--navy) !important;
+}
 
+/* ========================================
+   BUTTON STYLES
+   ======================================== */
+/* Primary Navy Button (solid) - Used in forms, CTAs */
 .btn-navy {
     background-color: var(--navy);
     color: #fff;
     border: none;
 }
 
-.btn-navy:hover { background-color: #152C6B; color: #fff; }
+.btn-navy:hover {
+    background-color: #152C6B;
+    color: #fff;
+}
 
+/* Outline Navy Button (transparent bg) - Used in secondary actions */
 .btn-outline-navy {
     border: 2px solid var(--navy);
     color: var(--navy);
@@ -33,42 +60,7 @@ body { background-color: var(--cream); }
     color: #fff;
 }
 
-/* Badge custom */
-.badge-hilang { background-color: #E0E7FF; color: #1E3A8A; }
-.badge-tersedia { background-color: #D1FAE5; color: #065F46; }
-.badge-pending { background-color: #FEF3C7; color: #92400E; }
-.badge-dikembalikan { background-color: #A7F3D0; color: #064E3B; }
-.badge-ditolak { background-color: #FEE2E2; color: #991B1B; }
-.badge-dalamproses { background-color: #FED7AA; color: #9A3412; }
-
-/* Card hover */
-.card-hover:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.2s; }
-
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: #ffffff !important;
-    letter-spacing: 0.5px;
-}
- 
-.navbar-custom {
-    background-color: #1a3a8f;
-}
- 
-.navbar-custom .nav-link {
-    color: #ffffff !important;
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.2s;
-}
- 
-.navbar-custom .nav-link.active,
-.navbar-custom .nav-link:hover {
-    border-bottom: 2px solid #ffffff;
-}
- 
+/* Login Button (white outline) - Used in header/navbar for login */
 .btn-masuk {
     border: 1.5px solid #ffffff;
     color: #ffffff;
@@ -78,9 +70,82 @@ body { background-color: var(--cream); }
     padding: 4px 18px;
     transition: background 0.2s, color 0.2s;
 }
- 
+
 .btn-masuk:hover {
     background: #ffffff;
     color: #1a3a8f;
 }
- 
+
+/* ========================================
+   BADGE STYLES
+   Used for item status labels (hilang, tersedia, etc)
+   ======================================== */
+.badge-hilang {
+    background-color: #E0E7FF;
+    color: #1E3A8A;
+}
+
+.badge-tersedia {
+    background-color: #D1FAE5;
+    color: #065F46;
+}
+
+.badge-pending {
+    background-color: #FEF3C7;
+    color: #92400E;
+}
+
+.badge-dikembalikan {
+    background-color: #A7F3D0;
+    color: #064E3B;
+}
+
+.badge-ditolak {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+.badge-dalamproses {
+    background-color: #FED7AA;
+    color: #9A3412;
+}
+
+/* ========================================
+   CARD STYLES
+   Used for item cards in list/grid view
+   ======================================== */
+.card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
+}
+
+/* ========================================
+   NAVBAR STYLES
+   Used in includes/header.php <nav> element
+   ======================================== */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+}
+
+.navbar-custom {
+    background-color: #1a3a8f;
+}
+
+.navbar-custom .nav-link {
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.navbar-custom .nav-link.active,
+.navbar-custom .nav-link:hover {
+    border-bottom: 2px solid #ffffff;
+}
+
