@@ -40,6 +40,5 @@ session_start();
 </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<main class="container-fluid" style="min-height: calc(100vh - 200px);">
+    <!-- Konten halaman di sini -->
