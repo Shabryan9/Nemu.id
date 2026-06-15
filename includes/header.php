@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php 
+session_save_path(__DIR__ . '/../sessions');
+if (!is_dir(session_save_path())) {
+    mkdir(session_save_path(), 0777, true);
+}
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
