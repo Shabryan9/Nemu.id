@@ -31,7 +31,7 @@ session_start();
 <div class="collapse navbar-collapse" id="navbarContent">
     <ul class="navbar-nav me-auto mb-0">
         <li class="nav-item">
-        <a class="nav-link active" href="#">Beranda</a>
+        <a class="nav-link active" href="dashboard.php">Beranda</a>
         </li>
     </ul>
 
