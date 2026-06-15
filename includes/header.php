@@ -1,38 +1,39 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nemu.id</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/css/custom.css"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nemu.id</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/custom.css"/>
 </head>
 <body>
- 
+
 <nav class="navbar navbar-expand-lg navbar-custom px-3">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#">Nemu.id</a>
- 
-  <!-- Toggler untuk mobile -->
-  <button class="navbar-toggler border-0" type="button"
+<!-- Brand -->
+    <a class="navbar-brand" href="#">Nemu.id</a>
+
+<!-- Toggler untuk mobile -->
+    <button class="navbar-toggler border-0" type="button"
     data-bs-toggle="collapse" data-bs-target="#navbarContent"
     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-  </button>
- 
-  <!-- Nav Links -->
-  <div class="collapse navbar-collapse" id="navbarContent">
+    </button>
+
+<!-- Nav Links -->
+<div class="collapse navbar-collapse" id="navbarContent">
     <ul class="navbar-nav me-auto mb-0">
-      <li class="nav-item">
+        <li class="nav-item">
         <a class="nav-link active" href="#">Beranda</a>
-      </li>
+        </li>
     </ul>
- 
+
     <!-- Tombol Masuk -->
     <button class="btn btn-masuk">Masuk</button>
-  </div>
+</div>
 </nav>
- 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
