@@ -149,3 +149,87 @@ body {
     border-bottom: 2px solid #ffffff;
 }
 
+/* ========================================
+   FOOTER STYLES
+   Used in includes/footer.php <footer> element
+   ======================================== */
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* Footer wrapper */
+.footer {
+    box-sizing: border-box;
+    background: #1E3A8A;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 32px 16px 0px 16px;
+    width: 100%;
+}
+
+/* Baris atas: brand kiri, universitas kanan */
+.footer-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-bottom: 24px;
+}
+
+/* Brand kiri */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 384px;
+}
+
+.footer-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #FFFFFF;
+}
+
+.footer-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(212, 227, 255, 0.8);
+}
+
+/* Universitas kanan */
+.footer-university {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-university-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Garis + copyright bawah */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-copy {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
