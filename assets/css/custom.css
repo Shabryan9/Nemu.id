@@ -477,3 +477,214 @@ body {
         font-size: 13px;
     }
 }
+
+/* ========================================
+   LOGIN PAGE STYLES
+   Used in login.php
+   ======================================== */
+.login-section {
+    background-color: #FFF8EC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    padding: 40px 0;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.logo-wrapper {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1E3A8A 0%, #152C6B 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 40px;
+    color: white;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: #6B7280;
+    text-align: center;
+    margin-bottom: 32px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #1E3A8A;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.form-control::placeholder {
+    color: #9CA3AF;
+}
+
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle .toggle-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6B7280;
+    font-size: 18px;
+    user-select: none;
+}
+
+.password-toggle input {
+    padding-right: 45px;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, #1E3A8A 0%, #152C6B 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #152C6B 0%, #0F1F52 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #E5E7EB;
+    margin: 24px 0;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.forgot-password a {
+    font-size: 13px;
+    color: #6B7280;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-password a:hover {
+    color: #1E3A8A;
+    text-decoration: underline;
+}
+
+.alert-error {
+    background-color: #FEE2E2;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background-color: #D1FAE5;
+    border: 1px solid #A7F3D0;
+    color: #065F46;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ========================================
+   LOGIN PAGE - NAVBAR CUSTOMIZATION
+   ======================================== */
+.login-page .navbar-nav {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.login-page .nav-link {
+    border-bottom: none !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.login-page .btn-masuk {
+    display: none;
+}
+@media (max-width: 480px) {
+    .login-card {
+       padding: 32px 20px;
+    }
+
+    .login-title {
+       font-size: 24px;
+    }
+
+    .login-subtitle {
+       font-size: 13px;
+    }
+
+    .logo-circle {
+       width: 70px;
+       height: 70px;
+       font-size: 36px;
+    }
+}

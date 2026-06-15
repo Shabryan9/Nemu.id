@@ -36,7 +36,7 @@ session_start();
     </ul>
 
     <!-- Tombol Masuk -->
-    <button class="btn btn-masuk">Masuk</button>
+    <a href="/Nemu.id/login.php" class="btn btn-masuk">Masuk</a>
 </div>
 </nav>
 

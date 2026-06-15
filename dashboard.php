@@ -11,7 +11,7 @@
                     </div>
                     <h1 class="hero-title mb-3">Platform Pelaporan dan Penemuan UREUKA</h1>
                     <p class="hero-desc mb-4">Temukan barang yang hilang atau laporkan penemuan Anda dengan sistem pelacakan kami.</p>
-                    <a href="#" class="btn btn-success btn-lg">
+                    <a href="/Nemu.id/login.php" class="btn btn-success btn-lg">
                         <i class="bi bi-search"></i> Cari & Temukan
                     </a>
                 </div>
