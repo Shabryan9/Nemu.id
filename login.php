@@ -1,21 +1,38 @@
+<?php
+session_start();
 
-<?php 
-// Login page identifier
-define('IS_LOGIN_PAGE', true);
+// Jika sudah login, redirect ke dashboard
+if (isset($_SESSION['user'])) {
+    if ($_SESSION['user']['role'] === 'admin') {
+        header('Location: ../admin/index.php');
+    } else {
+        header('Location: ../user/dashboard.php');
+    }
+    exit;
+}
+
+// Ambil flash message dari session (jika ada)
+$error = $_SESSION['flash_error'] ?? null;
+$success = $_SESSION['flash_success'] ?? null;
+
+// Hapus flash message setelah diambil
+unset($_SESSION['flash_error'], $_SESSION['flash_success']);
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login - Nemu.id</title>
+    <title>Login - Lost & Found Kampus</title>
+    <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"/>
-    <link rel="stylesheet" href="/Nemu.id/assets/css/custom.css?v=<?php echo time(); ?>"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/custom.css?v=<?= time() ?>"/>
 </head>
 <body class="login-page">
-
-<?php include __DIR__ . '/includes/header.php'; ?>
 
 <main class="login-section">
     <div class="login-container">
@@ -33,70 +50,74 @@ define('IS_LOGIN_PAGE', true);
                 Sistem Informasi Layanan Barang Hilang & Temuan Kampus
             </p>
 
-            <!-- Alert Messages -->
-            <?php if (isset($_GET['error'])): ?>
+            <!-- Flash Error -->
+            <?php if ($error): ?>
                 <div class="alert-error">
                     <i class="bi bi-exclamation-circle"></i>
-                    Email atau password salah. Silakan coba lagi.
+                    <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($_GET['message'])): ?>
+            <!-- Flash Success -->
+            <?php if ($success): ?>
                 <div class="alert-success">
                     <i class="bi bi-check-circle"></i>
-                    <?php echo htmlspecialchars($_GET['message']); ?>
+                    <?= htmlspecialchars($success) ?>
                 </div>
             <?php endif; ?>
 
-        <!-- Login Form -->
-        <form method="POST" action="/Nemu.id/process/login.php">
-            <!-- Email Input -->
-            <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    class="form-control" 
-                    placeholder="nama@reuka.ac.id"
-                    required
-                />
-            </div>
-
-            <!-- Password Input -->
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div class="password-toggle">
+            <!-- Login Form -->
+            <form method="POST" action="../process/login.php">
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
                     <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
+                        type="email" 
+                        id="email" 
+                        name="email" 
                         class="form-control" 
-                        placeholder="••••••••"
+                        placeholder="nama@kampus.ac.id"
                         required
                     />
-                    <span class="toggle-icon" onclick="togglePassword()">
-                        <i class="bi bi-eye" id="toggle-icon"></i>
-                    </span>
                 </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-toggle">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-control" 
+                            placeholder="••••••••"
+                            required
+                        />
+                        <span class="toggle-icon" onclick="togglePassword()">
+                            <i class="bi bi-eye" id="toggle-icon"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="btn-login">Masuk</button>
+            </form>
+
+            <!-- Divider -->
+            <hr class="divider">
+
+            <!-- Forgot Password Link -->
+            <div class="forgot-password">
+                <a href="#">Lupa password? Hubungi admin.</a>
             </div>
-
-            <!-- Login Button -->
-            <button type="submit" class="btn-login">Masuk</button>
-        </form>
-
-        <!-- Divider -->
-        <hr class="divider">
-
-        <!-- Forgot Password Link -->
-        <div class="forgot-password">
-            <a href="#">Lupa password? Hubungi admin.</a>
         </div>
     </div>
-</div>
 </main>
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Toggle Password Script -->
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password');
@@ -114,4 +135,4 @@ define('IS_LOGIN_PAGE', true);
     }
 </script>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
