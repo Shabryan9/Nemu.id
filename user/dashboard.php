@@ -44,7 +44,6 @@ include __DIR__ . '/../includes/header_user.php';
 ?>
   <div class="container py-4">
     <div class="d-flex justify-content-end mb-3">
-      <div class="me-2 small text-muted">Masuk sebagai <?= htmlspecialchars($user_name) ?></div>
     </div>
 
     <!-- Hero -->

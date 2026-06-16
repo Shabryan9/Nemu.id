@@ -71,7 +71,7 @@
                         <i class="bi bi-person-circle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                        <li><a class="dropdown-item" href="#profil">Profil</a></li>
+                        <li><a class="dropdown-item" href="#profil"><?= htmlspecialchars($user_name) ?></a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item logout-link" href="/Nemu.id/process/logout.php">Keluar</a></li>
                     </ul>
