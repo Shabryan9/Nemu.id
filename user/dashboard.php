@@ -40,12 +40,11 @@ $unread->execute([$user_id]);
 $unread_count = $unread->fetchColumn();
 
 $page_title = 'Dashboard - ' . htmlspecialchars($user_name);
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/../includes/header_user.php';
 ?>
   <div class="container py-4">
     <div class="d-flex justify-content-end mb-3">
       <div class="me-2 small text-muted">Masuk sebagai <?= htmlspecialchars($user_name) ?></div>
-      <a href="../process/logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
     </div>
 
     <!-- Hero -->
@@ -55,7 +54,7 @@ include __DIR__ . '/../includes/header.php';
         <p class="hero-sub">Katalog stewardship terpadu untuk integritas aset kampus. Temukan kembali barang Anda dengan sistem pelacakan berbasis kepercayaan.</p>
         <div class="d-flex gap-2 mt-3">
           <a href="#" class="btn btn-success btn-lg">Lapor Barang Hilang</a>
-          <a href="#" class="btn btn-outline-light btn-lg">Lapor Temuan Barang</a>
+          <a href="#" class="btn btn-success btn-lg">Lapor Temuan Barang</a>
         </div>
       </div>
       <div class="mt-3 mt-md-0 text-end">
