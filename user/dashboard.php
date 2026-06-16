@@ -52,7 +52,7 @@ include __DIR__ . '/../includes/header_user.php';
         <h1 class="hero-title">Selamat Datang, <?= htmlspecialchars($user_name) ?></h1>
         <p class="hero-sub">Katalog Reuka terpadu untuk integritas aset kampus. Temukan kembali barang Anda dengan sistem pelacakan berbasis kepercayaan.</p>
         <div class="d-flex gap-2 mt-3">
-          <a href="#" class="btn btn-success btn-lg">Lapor Barang Hilang</a>
+          <a href="../public/report.php" class="btn btn-success btn-lg">Lapor Barang Hilang</a>
           <a href="#" class="btn btn-success btn-lg">Lapor Temuan Barang</a>
         </div>
       </div>
