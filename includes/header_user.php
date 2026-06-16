@@ -73,7 +73,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <li><a class="dropdown-item" href="#profil">Profil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item logout-link" href="/Nemu.id/public/login.php">Keluar</a></li>
+                        <li><a class="dropdown-item logout-link" href="/Nemu.id/process/logout.php">Keluar</a></li>
                     </ul>
                 </div>
             </div>
