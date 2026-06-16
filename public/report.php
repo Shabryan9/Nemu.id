@@ -40,7 +40,7 @@ require_once __DIR__ . '/../includes/header_user.php';
 
     <div class="row">
         <div class="col-lg-8">
-            <form action="proses_lapor.php" method="POST" enctype="multipart/form-data" class="bg-white p-4 shadow-sm rounded">
+            <form action="proses_lapor.php" method="POST" enctype="multipart/form-data" class="bg-white p-4 card-ui rounded">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Kategori</label>
@@ -85,7 +85,7 @@ require_once __DIR__ . '/../includes/header_user.php';
         </div>
 
         <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="card mb-3 shadow-sm">
+            <div class="card mb-3 card-ui">
                 <div class="card-body">
                     <h6 class="text-muted">STATUS AWAL</h6>
                     <span class="badge bg-danger-subtle text-danger border border-danger">● Dilaporkan Hilang</span>
@@ -93,7 +93,7 @@ require_once __DIR__ . '/../includes/header_user.php';
                 </div>
             </div>
 
-            <div class="tips-box shadow-sm">
+            <div class="tips-box card-ui">
                 <h5>Tips Pencarian</h5>
                 <ul class="small ps-3">
                     <li>Deskripsikan ciri khas seperti stiker atau goresan.</li>
