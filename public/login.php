@@ -1,6 +1,7 @@
 <?php
-session_start();
-
+// Include connection.php to start session and get DB connection
+require_once __DIR__ . '/../config/connection.php';
+ 
 // Jika sudah login, redirect ke dashboard
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['role'] === 'admin') {
