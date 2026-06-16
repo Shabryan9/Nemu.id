@@ -1,4 +1,5 @@
 <?php
+session_start();
 // 2. Load koneksi database
 require_once __DIR__ . '/../config/connection.php';
 
