@@ -1,12 +1,24 @@
 <?php 
-// Panggil header yang sedang dibuat temanmu
-// include 'includes/header.php'; 
+// Pastikan variabel ini tetap ada agar menu di header aktif
+$active_page = 'laporan'; 
+require_once __DIR__ . '/../includes/header_user.php'; 
 ?>
 
+<div class="container my-4">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <!-- Sesuaikan link ke folder user/dashboard.php -->
+            <li class="breadcrumb-item"><a href="../user/dashboard.php" class="text-decoration-none">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lapor Barang Hilang</li>
+        </ol>
+    </nav>
 
-<?php 
-require_once __DIR__ . '/../includes/header.php'; 
-?>
+    <!-- Judul Halaman -->
+    <h2 class="fw-bold mb-1">Laporkan Barang Hilang</h2>
+    <p class="text-muted mb-4">Berikan detail lengkap untuk membantu komunitas menemukan barang Anda.</p>
+    
+    <!-- ... sisa form kamu tetap di sini ... -->
 
 <!DOCTYPE html>
 <html lang="id">
@@ -16,8 +28,8 @@ require_once __DIR__ . '/../includes/header.php';
     <title>Lapor Barang Hilang - Nemu.id</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .upload-area { border: 2px dashed #ccc; padding: 40px; text-align: center; border-radius: 10px; background: #f8f9fa; cursor: pointer; }
-        .tips-box { background-color: #0d6efd; color: white; padding: 20px; border-radius: 10px; }
+        .upload-area { border: 2px dashed #ccc; padding: 40px; text-align: center; border-radius: 10px; background: #f6f4f4; cursor: pointer; }
+        .tips-box { background-color: #1E3A8A; color: #ffffff; padding: 20px; border-radius: 10px; }
     </style>
 </head>
 <body class="bg-light">
