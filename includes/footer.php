@@ -3,16 +3,12 @@
 <footer class="footer mt-5 py-4">
     <div class="container-fluid px-4">
         <div class="row align-items-start mb-4">
-            <!-- Brand & Deskripsi - Kiri -->
             <div class="col-12 col-md-8">
                 <h5 class="footer-title mb-3">Nemu.Id</h5>
                 <p class="footer-desc">
-                    Temukan barang yang hilang atau laporkan penemuan Anda dengan sistem pelacakan kami. 
-                    <br>
+                    Temukan barang yang hilang atau laporkan penemuan Anda dengan sistem pelacakan kami.
                 </p>
             </div>
-
-            <!-- Universitas - Kanan -->
             <div class="col-12 col-md-4 d-flex align-items-center justify-content-md-end">
                 <div class="footer-university">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
@@ -22,8 +18,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Copyright Bottom - Kanan -->
         <div class="footer-bottom">
             <span class="footer-copy">© 2026 Nemu.Id : Layanan Informasi Barang Hilang &amp; Temuan</span>
         </div>

@@ -5,7 +5,7 @@ function getDB() {
         $host = "localhost";
         $user = "root";
         $pass = "";
-        $db   = "nemu_id";   // Nama database dari temanmu
+        $db   = "nemu_id";
 
         try {
             $pdo = new PDO(
@@ -18,13 +18,13 @@ function getDB() {
                 ]
             );
         } catch (PDOException $e) {
-            die("Request Time Out: " . $e->getMessage());
+            die("Koneksi database gagal: " . $e->getMessage());
         }
     }
     return $pdo;
 }
 
-// Session management: Start session if not already started
+// Mulai session jika belum
 if (session_status() === PHP_SESSION_NONE) {
     $session_path = __DIR__ . '/../sessions';
     if (!is_dir($session_path)) {
@@ -33,4 +33,3 @@ if (session_status() === PHP_SESSION_NONE) {
     session_save_path($session_path);
     session_start();
 }
-?>
