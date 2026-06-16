@@ -428,6 +428,12 @@ body {
     margin-left: -50vw;
     margin-right: -50vw;
 }
+.hero-sub{
+    color:white
+}
+.hero{
+    background: #1E3A8A;
+}
 
 .hero-content {
     width: 100%;
@@ -449,7 +455,7 @@ body {
     font-size: 48px;
     font-weight: 700;
     line-height: 1.2;
-    color: #000000;
+    color: #ffffff;
 }
 
 .hero-desc {
@@ -466,10 +472,10 @@ body {
 }
 
 .stats-card {
-    background: white;
+    background: #1a3a8f;
     border-radius: 12px;
     padding: 32px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #031a47;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }

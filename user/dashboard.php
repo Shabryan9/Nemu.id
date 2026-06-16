@@ -50,7 +50,7 @@ include __DIR__ . '/../includes/header_user.php';
     <div class="hero p-4 p-md-5 mb-4 d-flex flex-column flex-md-row align-items-start justify-content-between">
       <div>
         <h1 class="hero-title">Selamat Datang, <?= htmlspecialchars($user_name) ?></h1>
-        <p class="hero-sub">Katalog stewardship terpadu untuk integritas aset kampus. Temukan kembali barang Anda dengan sistem pelacakan berbasis kepercayaan.</p>
+        <p class="hero-sub">Katalog Reuka terpadu untuk integritas aset kampus. Temukan kembali barang Anda dengan sistem pelacakan berbasis kepercayaan.</p>
         <div class="d-flex gap-2 mt-3">
           <a href="#" class="btn btn-success btn-lg">Lapor Barang Hilang</a>
           <a href="#" class="btn btn-success btn-lg">Lapor Temuan Barang</a>
