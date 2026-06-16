@@ -18,6 +18,7 @@ $success = $_SESSION['flash_success'] ?? null;
 // Hapus flash message setelah diambil
 unset($_SESSION['flash_error'], $_SESSION['flash_success']);
 ?>
+<?php include __DIR__ . '/../includes/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="id">

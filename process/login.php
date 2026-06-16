@@ -3,11 +3,11 @@
 session_start();
 
 // 2. Load koneksi database
-require_once __DIR__ . '/Nemu.id/config/connection.php';
+require_once __DIR__ . '/../config/connection.php';
 
 // 3. Hanya terima metode POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location:Nemu.id/login.php');
+    header('Location: ../public/login.php');
     exit;
 }
 
@@ -18,7 +18,7 @@ $password = $_POST['password'] ?? '';
 // 5. Validasi sederhana
 if (empty($email) || empty($password)) {
     $_SESSION['flash_error'] = 'Email dan password wajib diisi.';
-    header('Location: Nemu.id/login.php');
+    header('Location: ../public/login.php');
     exit;
 }
 
@@ -49,12 +49,12 @@ try {
     } else {
         // Login gagal
         $_SESSION['flash_error'] = 'Email atau password salah.';
-        header('Location: Nemu.id/login.php');
+        header('Location: ../public/login.php');
         exit;
     }
 } catch (PDOException $e) {
     // Error database
     $_SESSION['flash_error'] = 'Terjadi kesalahan server. Silakan coba lagi.';
-    header('Location: Nemu.id/login.php');
+    header('Location: ../public/login.php');
     exit;
 }

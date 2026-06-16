@@ -18,7 +18,7 @@ session_start();
 
 <nav class="navbar navbar-expand-lg navbar-custom px-3">
 <!-- Brand -->
-    <a class="navbar-brand" href="#">Nemu.id</a>
+    <a class="navbar-brand" href="/Nemu.id/public/dashboard.php">Nemu.id</a>
 
 <!-- Toggler untuk mobile -->
     <button class="navbar-toggler border-0" type="button"
@@ -31,12 +31,12 @@ session_start();
 <div class="collapse navbar-collapse" id="navbarContent">
     <ul class="navbar-nav me-auto mb-0">
         <li class="nav-item">
-        <a class="nav-link active" href="dashboard.php">Beranda</a>
+        <a class="nav-link active" href="/Nemu.id/public/dashboard.php">Beranda</a>
         </li>
     </ul>
 
     <!-- Tombol Masuk -->
-    <a href="/Nemu.id/login.php" class="btn btn-masuk">Masuk</a>
+    <a href="/Nemu.id/public/login.php" class="btn btn-masuk">Masuk</a>
 </div>
 </nav>
 
