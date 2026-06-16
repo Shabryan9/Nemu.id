@@ -1,15 +1,16 @@
 <?php 
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="<?= $html_class ?? '' ?>">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Nemu.id</title>
+    <title><?= $page_title ?? 'Nemu.id' ?></title>
+    <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/Nemu.id/assets/css/custom.css?v=<?php echo time(); ?>"/>
 </head>
-<body>
+<body class="<?= $body_class ?? '' ?>">
 
 <nav class="navbar navbar-expand-lg navbar-custom px-3">
 <!-- Brand -->

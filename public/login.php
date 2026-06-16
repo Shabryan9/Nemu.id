@@ -5,9 +5,9 @@ require_once __DIR__ . '/../config/connection.php';
 // Jika sudah login, redirect ke dashboard
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['role'] === 'admin') {
-        header('Location: ../admin/index.php');
+        header('Location: /Nemu.id/admin/index.php');
     } else {
-        header('Location: ../user/dashboard.php');
+        header('Location: /Nemu.id/user/dashboard.php');
     }
     exit;
 }
@@ -19,24 +19,12 @@ $success = $_SESSION['flash_success'] ?? null;
 // Hapus flash message setelah diambil
 unset($_SESSION['flash_error'], $_SESSION['flash_success']);
 ?>
-<?php include __DIR__ . '/../includes/header.php'; ?>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login - Lost & Found Kampus</title>
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Bootstrap Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"/>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/custom.css?v=<?= time() ?>"/>
-</head>
-<body class="login-page">
-
-<main class="login-section">
+<?php 
+$page_title = 'Login - Lost & Found Kampus';
+$body_class = 'login-page'; // Set body class for header.php
+include __DIR__ . '/../includes/header.php';
+?>
+<div class="login-section">
     <div class="login-container">
         <div class="login-card">
             <!-- Logo -->
@@ -114,13 +102,9 @@ unset($_SESSION['flash_error'], $_SESSION['flash_success']);
             </div>
         </div>
     </div>
-</main>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Toggle Password Script -->
+<?php include __DIR__ . '/../includes/footer.php'; ?>
 <script>
+    // Toggle Password Script
     function togglePassword() {
         const passwordInput = document.getElementById('password');
         const toggleIcon = document.getElementById('toggle-icon');
@@ -136,5 +120,3 @@ unset($_SESSION['flash_error'], $_SESSION['flash_success']);
         }
     }
 </script>
-
-<?php include __DIR__ . '/../includes/footer.php'; ?>
