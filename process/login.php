@@ -1,42 +1,46 @@
 <?php
-// 2. Load koneksi database
 require_once __DIR__ . '/../config/connection.php';
 
-// 3. Hanya terima metode POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /Nemu.id/public/login.php');
     exit;
 }
 
-// 4. Ambil input dari form
 $email    = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
+$login_as = $_POST['login_as'] ?? 'user'; // default user
 
-// 5. Validasi sederhana
 if (empty($email) || empty($password)) {
     $_SESSION['flash_error'] = 'Email dan password wajib diisi.';
-    header('Location: /Nemu.id/public/login.php');
+    // redirect ke halaman asal sesuai login_as
+    $redirect = ($login_as === 'admin') ? '/Nemu.id/admin/login.php' : '/Nemu.id/public/login.php';
+    header('Location: ' . $redirect);
     exit;
 }
 
 try {
-    // 6. Cari user di database (hanya yang tidak diblokir)
     $pdo  = getDB();
-    $stmt = $pdo->prepare(
-        "SELECT * FROM users WHERE email = ? AND is_blocked = 0"
-    );
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND is_blocked = 0");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // 7. Verifikasi password
     if ($user && password_verify($password, $user['password_hash'])) {
-        // Hapus password hash dari session demi keamanan
-        unset($user['password_hash']);
+        // Validasi role berdasarkan halaman login
+        if ($login_as === 'admin' && $user['role'] !== 'admin') {
+            $_SESSION['flash_error'] = 'Akun Anda bukan administrator. Silakan gunakan halaman login user.';
+            header('Location: /Nemu.id/admin/login.php');
+            exit;
+        }
+        if ($login_as === 'user' && $user['role'] !== 'user') {
+            $_SESSION['flash_error'] = 'Akun Anda adalah admin. Silakan gunakan halaman login admin.';
+            header('Location: /Nemu.id/public/login.php');
+            exit;
+        }
 
-        // Simpan data user ke session
+        unset($user['password_hash']);
         $_SESSION['user'] = $user;
 
-        // 8. Redirect sesuai role
+        // Redirect sesuai role (sama seperti sebelumnya)
         if ($user['role'] === 'admin') {
             header('Location: /Nemu.id/admin/index.php');
         } else {
@@ -44,14 +48,14 @@ try {
         }
         exit;
     } else {
-        // Login gagal
         $_SESSION['flash_error'] = 'Email atau password salah.';
-    header('Location: /Nemu.id/public/login.php');
+        $redirect = ($login_as === 'admin') ? '/Nemu.id/admin/login.php' : '/Nemu.id/public/login.php';
+        header('Location: ' . $redirect);
         exit;
     }
 } catch (PDOException $e) {
-    // Error database
     $_SESSION['flash_error'] = 'Terjadi kesalahan server. Silakan coba lagi.';
-    header('Location: /Nemu.id/public/login.php');
+    $redirect = ($login_as === 'admin') ? '/Nemu.id/admin/login.php' : '/Nemu.id/public/login.php';
+    header('Location: ' . $redirect);
     exit;
 }
