@@ -74,7 +74,7 @@ include __DIR__ . '/../includes/header_user.php';
         <div class="col-md-3">
             <select name="category" class="form-select">
                 <option value="">Semua Kategori</option>
-                <?php foreach ($categories as $cat): ?>
+                <?php foreach ($category as $cat): ?>
                     <option value="<?= $cat['id'] ?>" <?= $category == $cat['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cat['name']) ?></option>
                 <?php endforeach; ?>
             </select>
