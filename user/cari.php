@@ -8,43 +8,58 @@ $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
 
-$results = [];
-if (!empty($keyword) || !empty($category) || !empty($status)) {
-    $sql = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status
-            FROM lost_items l
-            LEFT JOIN categories c ON l.category_id = c.id
-            WHERE l.status = 'hilang'";
-    $params = [];
-    if (!empty($keyword)) {
-        $sql .= " AND (l.item_name LIKE ? OR l.description LIKE ?)";
-        $params[] = "%$keyword%";
-        $params[] = "%$keyword%";
-    }
-    if (!empty($category)) {
-        $sql .= " AND l.category_id = ?";
-        $params[] = $category;
-    }
-    $sql .= " UNION ALL
-              SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status
-              FROM found_items f
-              LEFT JOIN categories c ON f.category_id = c.id
-              WHERE f.status = 'tersedia'";
-    if (!empty($keyword)) {
-        $sql .= " AND (f.item_name LIKE ? OR f.description LIKE ?)";
-        $params[] = "%$keyword%";
-        $params[] = "%$keyword%";
-    }
-    if (!empty($category)) {
-        $sql .= " AND f.category_id = ?";
-        $params[] = $category;
-    }
-    $sql .= " ORDER BY event_date DESC LIMIT 20";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
-    $results = $stmt->fetchAll();
-}
 
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+$results = [];
+$params = [];
+$queries = [];
+
+
+if (isset($_GET['search'])) {
+    
+    
+    if (empty($status) || $status == 'hilang') {
+        $q1 = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, 
+               l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status
+               FROM lost_items l
+               LEFT JOIN categories c ON l.category_id = c.id
+               WHERE 1=1";
+        if (!empty($keyword)) {
+            $q1 .= " AND (l.item_name LIKE ? OR l.description LIKE ?)";
+            $params[] = "%$keyword%"; $params[] = "%$keyword%";
+        }
+        if (!empty($category)) {
+            $q1 .= " AND l.category_id = ?";
+            $params[] = $category;
+        }
+        $queries[] = $q1;
+    }
+
+    
+    if (empty($status) || $status == 'tersedia') {
+        $q2 = "SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, 
+               f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status
+               FROM found_items f
+               LEFT JOIN categories c ON f.category_id = c.id
+               WHERE 1=1";
+        if (!empty($keyword)) {
+            $q2 .= " AND (f.item_name LIKE ? OR f.description LIKE ?)";
+            $params[] = "%$keyword%"; $params[] = "%$keyword%";
+        }
+        if (!empty($category)) {
+            $q2 .= " AND f.category_id = ?";
+            $params[] = $category;
+        }
+        $queries[] = $q2;
+    }
+
+    
+    if (!empty($queries)) {
+        $sql = implode(" UNION ALL ", $queries) . " ORDER BY event_date DESC LIMIT 20";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $results = $stmt->fetchAll();
+    }
+}
 $page_title = 'Pencarian';
 $active_page = 'cari';
 include __DIR__ . '/../includes/header_user.php';
@@ -72,7 +87,7 @@ include __DIR__ . '/../includes/header_user.php';
             </select>
         </div>
         <div class="col-md-2">
-            <button type="submit" class="btn btn-navy w-100">Cari</button>
+            <button type="submit" name="search" class="btn btn-navy w-100">Cari</button>
         </div>
     </form>
 
