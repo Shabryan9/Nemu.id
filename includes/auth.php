@@ -32,3 +32,15 @@ function requireAdmin() {
         exit;
     }
 }
+
+function requireUser() {
+    if (!isLoggedIn()) {
+        header('Location: /Nemu.id/public/login.php');
+        exit;
+    }
+    // Jika admin, redirect ke halaman admin
+    if (isAdmin()) {
+        header('Location: /Nemu.id/admin/index.php');
+        exit;
+    }
+}

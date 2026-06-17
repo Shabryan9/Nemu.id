@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/connection.php';
 require_once __DIR__ . '/../includes/auth.php';
-requireLogin();
+requireUser();
 
 $pdo = getDB();
 $categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();

@@ -4,7 +4,7 @@ $page_title = 'Laporan Saya - Nemu.id';
 
 require_once __DIR__ . '/../config/connection.php';
 require_once __DIR__ . '/../includes/auth.php';
-requireLogin();
+requireUser();
 
 // Definisikan variabel filter dengan default dari GET
 $type   = $_GET['type'] ?? 'all';
