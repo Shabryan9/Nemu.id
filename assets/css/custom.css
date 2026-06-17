@@ -246,6 +246,36 @@ body {
 .badge-available { position: absolute; top: 10px; right: 10px; }
 
 /* =============================
+   ADMIN SIDEBAR
+   ============================= */
+.sidebar {
+    min-height: 100vh;
+    background-color: var(--navy);
+}
+.sidebar .nav-link {
+    color: rgba(255,255,255,0.8);
+    padding: 0.75rem 1rem;
+    transition: background 0.2s;
+}
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: rgba(255,255,255,0.15);
+    color: #fff;
+}
+/* Offcanvas for mobile */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        display: block;
+        overflow-y: auto;
+    }
+}
+
+/* =============================
    RESPONSIVE NAVBAR OVERRIDES
    ============================= */
 @media (max-width: 991px) {
