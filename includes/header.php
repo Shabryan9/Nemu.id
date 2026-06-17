@@ -26,8 +26,11 @@ if (session_status() === PHP_SESSION_NONE) {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarPublic">
-            <ul class="navbar-nav ms-auto mb-0">
+            <ul class="navbar-nav me-auto mb-0">
                 <li class="nav-item"><a class="nav-link" href="/Nemu.id/public/index.php">Beranda</a></li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-0">
                 <?php if (isset($_SESSION['user'])): ?>
                     <li class="nav-item"><a class="nav-link" href="/Nemu.id/user/dashboard.php">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link text-danger" href="/Nemu.id/process/logout.php">Logout</a></li>
