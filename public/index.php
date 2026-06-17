@@ -29,7 +29,7 @@ include __DIR__ . '/../includes/header.php';
             <div class="row align-items-center">
                 <div class="col-12 col-lg-6">
                     <div class="badge-hero mb-3">
-                        <span>🛡️ SISTEM KEAMANAN UNIVERSITAS REUKA</span>
+                        <span> SISTEM KEAMANAN UNIVERSITAS REUKA</span>
                     </div>
                     <h1 class="hero-title mb-3">Platform Pelaporan dan Penemuan UREUKA</h1>
                     <p class="hero-desc mb-4">Temukan barang yang hilang atau laporkan penemuan Anda dengan sistem pelacakan kami.</p>
@@ -63,7 +63,7 @@ include __DIR__ . '/../includes/header.php';
                 <div class="stats-card">
                     <div class="stats-label">LAPORAN AKTIF</div>
                     <h2 class="stats-number"><?= $laporan_aktif ?></h2>
-                    <p class="stats-time mt-2">📊 laporan operatif, fitur yang lain</p>
+                    <p class="stats-time mt-2"> laporan operatif, fitur yang lain</p>
                 </div>
             </div>
         </div>
