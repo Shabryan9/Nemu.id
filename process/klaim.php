@@ -21,7 +21,7 @@ if (empty($claim_reason) || empty($_FILES['evidence_photo']['name'])) {
 }
 
 // Cek status barang
-$item = $pdo->prepare("SELECT status FROM found_items WHERE id = ?");
+$item = $pdo->prepare("SELECT status, item_name FROM found_items WHERE id = ?");
 $item->execute([$found_item_id]);
 $item = $item->fetch();
 if (!$item || $item['status'] !== 'tersedia') {
@@ -48,9 +48,11 @@ $update->execute([$found_item_id]);
 
 // Notifikasi ke admin (opsional: semua admin)
 $admins = $pdo->query("SELECT id FROM users WHERE role = 'admin'")->fetchAll();
-foreach ($admins as $admin) {
+if ($admins) {
+    foreach ($admins as $admin) {
     $notif = $pdo->prepare("INSERT INTO notifications (user_id, message, link) VALUES (?, ?, ?)");
     $notif->execute([$admin['id'], 'Klaim baru untuk barang: ' . $item['item_name'], '/Nemu.id/admin/klaim.php']);
+}
 }
 
 $_SESSION['flash_success'] = 'Klaim berhasil diajukan. Admin akan memproses.';

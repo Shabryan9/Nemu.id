@@ -8,6 +8,8 @@ $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
 
+$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+
 
 $results = [];
 $params = [];
@@ -40,7 +42,7 @@ if (isset($_GET['search'])) {
                f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status
                FROM found_items f
                LEFT JOIN categories c ON f.category_id = c.id
-               WHERE 1=1";
+                WHERE f.status = 'tersedia'";
         if (!empty($keyword)) {
             $q2 .= " AND (f.item_name LIKE ? OR f.description LIKE ?)";
             $params[] = "%$keyword%"; $params[] = "%$keyword%";
@@ -74,8 +76,8 @@ include __DIR__ . '/../includes/header_user.php';
         <div class="col-md-3">
             <select name="category" class="form-select">
                 <option value="">Semua Kategori</option>
-                <?php foreach ($category as $cat): ?>
-                    <option value="<?= $cat['id'] ?>" <?= $category == $cat['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cat['name']) ?></option>
+                <?php foreach ($categories as $cat): ?>
+                <option value="<?= $cat['id'] ?>" <?= $category == $cat['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cat['name']) ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
