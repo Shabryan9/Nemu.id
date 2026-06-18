@@ -21,7 +21,12 @@ try {
     $stmt->execute([$nama, $nim, $email, $hash, $role]);
     $_SESSION['flash_success'] = 'User berhasil ditambahkan.';
 } catch (PDOException $e) {
-    $_SESSION['flash_error'] = 'Gagal: ' . $e->getMessage();
+    // Kode 23000 atau error code 1062 menandakan data duplikat (Unique Constraint) di MySQL
+    if ($e->getCode() == 23000 || strpos($e->getMessage(), '1062') !== false) {
+        $_SESSION['flash_error'] = 'Gagal: NIM/NIP atau Email sudah terdaftar di sistem!';
+    } else {
+        $_SESSION['flash_error'] = 'Gagal menambahkan user: ' . $e->getMessage();
+    }
 }
 header('Location: /Nemu.id/admin/users.php');
 exit;
