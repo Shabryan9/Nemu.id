@@ -21,12 +21,26 @@ if (empty($claim_reason) || empty($_FILES['evidence_photo']['name'])) {
 }
 
 // Cek status barang
-$item = $pdo->prepare("SELECT status, item_name FROM found_items WHERE id = ?");
+$item = $pdo->prepare("SELECT status, item_name, finder_user_id FROM found_items WHERE id = ?");
 $item->execute([$found_item_id]);
 $item = $item->fetch();
 if (!$item || $item['status'] !== 'tersedia') {
     $_SESSION['flash_error'] = 'Barang tidak dapat diklaim.';
     header('Location: /Nemu.id/user/dashboard.php');
+    exit;
+}
+
+if ((int) $item['finder_user_id'] === (int) $user_id) {
+    $_SESSION['flash_error'] = 'Anda tidak dapat mengklaim laporan temuan sendiri.';
+    header('Location: /Nemu.id/user/detail-temuan.php?id=' . $found_item_id);
+    exit;
+}
+
+$activeClaim = $pdo->prepare("SELECT id FROM claims WHERE found_item_id = ? AND claimant_user_id = ? AND status IN ('pending', 'disetujui')");
+$activeClaim->execute([$found_item_id, $user_id]);
+if ($activeClaim->fetchColumn()) {
+    $_SESSION['flash_error'] = 'Anda sudah memiliki klaim aktif untuk barang ini.';
+    header('Location: /Nemu.id/user/detail-temuan.php?id=' . $found_item_id);
     exit;
 }
 

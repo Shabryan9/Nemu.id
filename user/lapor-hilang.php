@@ -13,7 +13,7 @@ include __DIR__ . '/../includes/header_user.php';
 <div class="container py-4">
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/Nemu.id/user/dashboard.php">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/Nemu.id/user/dashboard.php">Beranda</a></li>
             <li class="breadcrumb-item active">Lapor Barang Hilang</li>
         </ol>
     </nav>
@@ -27,7 +27,7 @@ include __DIR__ . '/../includes/header_user.php';
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Kategori</label>
                         <select class="form-select" name="category_id" required>
-                            <option selected disabled>Pilih Kategori</option>
+                            <option value="" selected disabled>Pilih Kategori</option>
                             <?php foreach ($categories as $cat): ?>
                                 <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
                             <?php endforeach; ?>

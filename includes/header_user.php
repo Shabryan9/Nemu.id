@@ -42,12 +42,6 @@ if (isset($_SESSION['user'])) {
                     <a class="nav-link <?= $active_page == 'cari' ? 'active' : '' ?>" href="/Nemu.id/user/cari.php">Katalog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= $active_page == 'lapor-hilang' ? 'active' : '' ?>" href="/Nemu.id/user/lapor-hilang.php">Lapor Hilang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= $active_page == 'lapor-temuan' ? 'active' : '' ?>" href="/Nemu.id/user/lapor-temuan.php">Lapor Temuan</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link <?= $active_page == 'laporan-saya' ? 'active' : '' ?>" href="/Nemu.id/user/laporan-saya.php">Laporan Saya</a>
                 </li>
             </ul>
@@ -64,12 +58,6 @@ if (isset($_SESSION['user'])) {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= $active_page == 'cari' ? 'active' : '' ?>" href="/Nemu.id/user/cari.php">Katalog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= $active_page == 'lapor-hilang' ? 'active' : '' ?>" href="/Nemu.id/user/lapor-hilang.php">Lapor Hilang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= $active_page == 'lapor-temuan' ? 'active' : '' ?>" href="/Nemu.id/user/lapor-temuan.php">Lapor Temuan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= $active_page == 'laporan-saya' ? 'active' : '' ?>" href="/Nemu.id/user/laporan-saya.php">Laporan Saya</a>

@@ -5,6 +5,7 @@ requireUser();
 
 $id = $_GET['id'] ?? 0;
 $pdo = getDB();
+$user_id = currentUserId();
 
 $item = $pdo->prepare("SELECT f.*, c.name AS category_name, u.nama_lengkap AS finder_name
                        FROM found_items f
@@ -19,10 +20,18 @@ if (!$item) {
     exit;
 }
 
-// Cek apakah user sudah mengajukan klaim sebelumnya
-$existing_claim = $pdo->prepare("SELECT id FROM claims WHERE found_item_id = ? AND claimant_user_id = ?");
-$existing_claim->execute([$id, currentUserId()]);
+// Cek klaim aktif saja. Klaim yang sudah ditolak boleh diajukan ulang.
+$existing_claim = $pdo->prepare("SELECT id FROM claims WHERE found_item_id = ? AND claimant_user_id = ? AND status IN ('pending', 'disetujui')");
+$existing_claim->execute([$id, $user_id]);
 $already_claimed = $existing_claim->fetchColumn();
+
+$rejected_claim = $pdo->prepare("SELECT admin_note FROM claims WHERE found_item_id = ? AND claimant_user_id = ? AND status = 'ditolak' ORDER BY processed_at DESC, id DESC LIMIT 1");
+$rejected_claim->execute([$id, $user_id]);
+$last_rejection_note = $rejected_claim->fetchColumn();
+
+$is_own_found_item = (int) $item['finder_user_id'] === (int) $user_id;
+$error = $_SESSION['flash_error'] ?? null;
+unset($_SESSION['flash_error']);
 
 $page_title = 'Detail Temuan';
 include __DIR__ . '/../includes/header_user.php';
@@ -37,6 +46,11 @@ include __DIR__ . '/../includes/header_user.php';
     </nav>
 
     <div class="row">
+        <?php if ($error): ?>
+            <div class="col-12">
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            </div>
+        <?php endif; ?>
         <div class="col-md-6">
             <?php if ($item['photo']): ?>
                 <img src="/Nemu.id/assets/uploads/items/<?= htmlspecialchars($item['photo']) ?>" class="img-fluid rounded">
@@ -57,9 +71,16 @@ include __DIR__ . '/../includes/header_user.php';
                 <p><em>Penemu anonim</em></p>
             <?php endif; ?>
 
-            <?php if ($item['status'] == 'tersedia' && !$already_claimed): ?>
+            <?php if ($is_own_found_item): ?>
+                <div class="alert alert-warning">Ini adalah laporan temuan Anda sendiri, sehingga tidak dapat diklaim.</div>
+            <?php elseif ($item['status'] == 'tersedia' && !$already_claimed): ?>
                 <hr>
                 <h5>Ajukan Klaim</h5>
+                <?php if ($last_rejection_note): ?>
+                    <div class="alert alert-warning">
+                        Klaim sebelumnya ditolak admin: <?= htmlspecialchars($last_rejection_note) ?>
+                    </div>
+                <?php endif; ?>
                 <form action="/Nemu.id/process/klaim.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="found_item_id" value="<?= $item['id'] ?>">
                     <div class="mb-3">

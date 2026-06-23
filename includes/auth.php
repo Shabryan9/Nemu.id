@@ -28,7 +28,7 @@ function requireLogin() {
 
 function requireAdmin() {
     if (!isAdmin()) {
-        header('Location: /Nemu.id/public/login.php');
+        header('Location: /Nemu.id/admin/login.php');
         exit;
     }
 }

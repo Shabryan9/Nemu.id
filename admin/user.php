@@ -5,7 +5,11 @@ require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
 
 $pdo = getDB();
+$current_admin_id = currentUserId();
 $users = $pdo->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll();
+$error = $_SESSION['flash_error'] ?? null;
+$success = $_SESSION['flash_success'] ?? null;
+unset($_SESSION['flash_error'], $_SESSION['flash_success']);
 $page_title = 'Manajemen User';
 ?>
 <!DOCTYPE html>
@@ -27,6 +31,12 @@ $page_title = 'Manajemen User';
                 <h2>Manajemen User</h2>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Tambah User</button>
             </div>
+            <?php if ($error): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            <?php if ($success): ?>
+                <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover bg-white">
                     <thead><tr><th>Nama</th><th>NIM/NIP</th><th>Email</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead>
@@ -44,7 +54,13 @@ $page_title = 'Manajemen User';
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editUser<?= $u['id'] ?>">Edit</button>
-                                <a href="/Nemu.id/process/admin/user-toggle-block.php?id=<?= $u['id'] ?>" class="btn btn-sm <?= $u['is_blocked'] ? 'btn-success' : 'btn-danger' ?>" onclick="return confirm('Yakin?')"><?= $u['is_blocked'] ? 'Buka' : 'Blokir' ?></a>
+                                <?php if ((int) $u['id'] === (int) $current_admin_id): ?>
+                                    <button type="button" class="btn btn-sm btn-secondary" disabled>Akun Anda</button>
+                                <?php elseif ($u['role'] === 'admin'): ?>
+                                    <button type="button" class="btn btn-sm btn-secondary" disabled>Admin</button>
+                                <?php else: ?>
+                                    <a href="/Nemu.id/process/admin/user-toogle-block.php?id=<?= $u['id'] ?>" class="btn btn-sm <?= $u['is_blocked'] ? 'btn-success' : 'btn-danger' ?>" onclick="return confirm('Yakin?')"><?= $u['is_blocked'] ? 'Buka' : 'Blokir' ?></a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <!-- Modal Edit User -->

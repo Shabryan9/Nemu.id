@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 requireUser();
 
 $pdo = getDB();
+$user_id = currentUserId();
 $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
@@ -21,10 +22,10 @@ if (isset($_GET['search'])) {
     
     if (empty($status) || $status == 'hilang') {
         $q1 = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, 
-               l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status
+               l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status, l.user_id
                FROM lost_items l
                LEFT JOIN categories c ON l.category_id = c.id
-               WHERE 1=1";
+               WHERE l.status = 'hilang'";
         if (!empty($keyword)) {
             $q1 .= " AND (l.item_name LIKE ? OR l.description LIKE ?)";
             $params[] = "%$keyword%"; $params[] = "%$keyword%";
@@ -39,10 +40,10 @@ if (isset($_GET['search'])) {
     
     if (empty($status) || $status == 'tersedia') {
         $q2 = "SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, 
-               f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status
+               f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status, NULL AS user_id
                FROM found_items f
                LEFT JOIN categories c ON f.category_id = c.id
-                WHERE f.status = 'tersedia'";
+               WHERE f.status = 'tersedia'";
         if (!empty($keyword)) {
             $q2 .= " AND (f.item_name LIKE ? OR f.description LIKE ?)";
             $params[] = "%$keyword%"; $params[] = "%$keyword%";
@@ -113,7 +114,11 @@ include __DIR__ . '/../includes/header_user.php';
                         <?php if ($item['type'] == 'found'): ?>
                             <a href="/Nemu.id/user/detail-temuan.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Detail</a>
                         <?php else: ?>
-                            <span class="text-muted">-</span>
+                            <?php if (isset($item['user_id']) && $item['user_id'] == $user_id): ?>
+                                <a href="/Nemu.id/user/laporan-saya.php" class="btn btn-sm btn-secondary">Lihat Laporan</a>
+                            <?php else: ?>
+                                <a href="/Nemu.id/user/lapor-temuan.php" class="btn btn-sm btn-info">Menemukan ini? Lapor</a>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

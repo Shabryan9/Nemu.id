@@ -37,7 +37,7 @@ $pending_klaim  = $pdo->query("SELECT COUNT(*) FROM claims WHERE status = 'pendi
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white <?= $active_page == 'users' ? 'active' : '' ?>" href="/Nemu.id/admin/users.php">
+                <a class="nav-link text-white <?= $active_page == 'users' ? 'active' : '' ?>" href="/Nemu.id/admin/user.php">
                     <i class="bi bi-people me-2"></i> Manajemen User
                 </a>
             </li>
