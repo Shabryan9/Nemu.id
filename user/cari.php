@@ -115,6 +115,9 @@ include __DIR__ . '/../includes/header_user.php';
                         <small class="text-muted"><?= htmlspecialchars($item['category_name'] ?? 'Umum') ?></small>
                         <h5 class="card-title"><?= htmlspecialchars($item['item_name']) ?></h5>
                         <p class="card-text small text-muted"><?= htmlspecialchars($item['location']) ?> • <?= date('d M Y', strtotime($item['event_date'])) ?></p>
+                        <?php if ($item['type'] == 'lost'): ?>
+                            <p class="card-text small"><?= htmlspecialchars(mb_strimwidth($item['description'] ?? '', 0, 60, '...')) ?></p>
+                        <?php endif; ?>
                         <?php if ($item['type'] == 'found'): ?>
                             <a href="/Nemu.id/user/detail-temuan.php?id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">Detail</a>
                         <?php else: ?>
