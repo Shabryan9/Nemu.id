@@ -60,7 +60,7 @@ $body_class = 'login-page';
                     <label for="password" class="form-label">Password</label>
                     <div class="password-toggle">
                         <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
-                        <span class="toggle-icon" onclick="togglePassword()"><i class="bi bi-eye" id="toggle-icon"></i></span>
+                        
                     </div>
                 </div>
                 <button type="submit" class="btn-login">Masuk</button>
@@ -74,18 +74,6 @@ $body_class = 'login-page';
     </div>
 </div>
 
-<script>
-function togglePassword() {
-    const el = document.getElementById('password');
-    const icon = document.getElementById('toggle-icon');
-    if (el.type === 'password') {
-        el.type = 'text';
-        icon.classList.replace('bi-eye', 'bi-eye-slash');
-    } else {
-        el.type = 'password';
-        icon.classList.replace('bi-eye-slash', 'bi-eye');
-    }
-}
-</script>
+
 </body>
 </html>
