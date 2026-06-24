@@ -88,7 +88,6 @@ include __DIR__ . '/../includes/header_user.php';
                     <option value="dalam_proses_klaim" <?= $status == 'dalam_proses_klaim' ? 'selected' : '' ?>>Dalam Proses Klaim</option>
                     <option value="dikembalikan" <?= $status == 'dikembalikan' ? 'selected' : '' ?>>Dikembalikan</option>
                     <option value="ditolak_admin" <?= $status == 'ditolak_admin' ? 'selected' : '' ?>>Ditolak Admin</option>
-                    <option value="kadaluarsa" <?= $status == 'kadaluarsa' ? 'selected' : '' ?>>Kadaluarsa</option>
                 </optgroup>
             </select>
         </div>
