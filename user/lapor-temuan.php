@@ -4,7 +4,8 @@ require_once __DIR__ . '/../includes/auth.php';
 requireUser();
 
 $pdo = getDB();
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+// [AKSI]: Ambil daftar kategori untuk pilihan laporan temuan.
+$categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 $page_title = 'Lapor Barang Temuan';
 $active_page = 'lapor-temuan';
 include __DIR__ . '/../includes/header_user.php';
@@ -21,10 +22,10 @@ include __DIR__ . '/../includes/header_user.php';
     <p class="text-muted mb-4">Bantu pemilik menemukan barangnya dengan melaporkan temuan Anda.</p>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-12 col-lg-8">
             <form action="/Nemu.id/process/lapor-temuan.php" method="POST" enctype="multipart/form-data" class="bg-white p-4 card-ui rounded">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label class="form-label">Kategori</label>
                         <select class="form-select" name="category_id" required>
                             <option value="" selected disabled>Pilih Kategori</option>
@@ -33,7 +34,7 @@ include __DIR__ . '/../includes/header_user.php';
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label class="form-label">Nama Barang</label>
                         <input type="text" class="form-control" name="item_name" required>
                     </div>
@@ -43,11 +44,11 @@ include __DIR__ . '/../includes/header_user.php';
                     <textarea class="form-control" name="description" rows="4" required></textarea>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label class="form-label">Lokasi Ditemukan</label>
                         <input type="text" class="form-control" name="found_location" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label class="form-label">Tanggal & Waktu Ditemukan</label>
                         <input type="datetime-local" class="form-control" name="found_datetime" required>
                     </div>
@@ -63,7 +64,7 @@ include __DIR__ . '/../includes/header_user.php';
                 <button type="submit" class="btn btn-success w-100">Kirim Laporan</button>
             </form>
         </div>
-        <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="col-12 col-lg-4 mt-4 mt-lg-0">
             <!-- Card 1: Status Awal -->
             <div class="card card-ui mb-3">
                 <div class="card-body">

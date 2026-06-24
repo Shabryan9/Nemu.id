@@ -4,9 +4,9 @@ require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
 
 $pdo = getDB();
-// Menghitung jumlah pending untuk badge
-$pending_temuan = $pdo->query("SELECT COUNT(*) FROM found_items WHERE status = 'pending'")->fetchColumn();
-$pending_klaim  = $pdo->query("SELECT COUNT(*) FROM claims WHERE status = 'pending'")->fetchColumn();
+// [AKSI]: Hitung jumlah pending untuk badge navigasi admin.
+$pending_temuan = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status = 'pending'");
+$pending_klaim  = dbFetchColumn("SELECT COUNT(*) FROM claims WHERE status = 'pending'");
 ?>
 <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-navy sidebar collapse show">
     <div class="position-sticky pt-3">

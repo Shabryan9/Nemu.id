@@ -60,13 +60,13 @@ $stmt->execute([$found_item_id, $user_id, $claim_reason, $evidenceName]);
 $update = $pdo->prepare("UPDATE found_items SET status = 'dalam_proses_klaim' WHERE id = ?");
 $update->execute([$found_item_id]);
 
-// Notifikasi ke admin (opsional: semua admin)
-$admins = $pdo->query("SELECT id FROM users WHERE role = 'admin'")->fetchAll();
+// [AKSI]: Kirim notifikasi klaim baru ke seluruh admin.
+$admins = dbFetchAll("SELECT id FROM users WHERE role = 'admin'");
 if ($admins) {
     foreach ($admins as $admin) {
-    $notif = $pdo->prepare("INSERT INTO notifications (user_id, message, link) VALUES (?, ?, ?)");
-    $notif->execute([$admin['id'], 'Klaim baru untuk barang: ' . $item['item_name'], '/Nemu.id/admin/klaim.php']);
-}
+        $notif = $pdo->prepare("INSERT INTO notifications (user_id, message, link) VALUES (?, ?, ?)");
+        $notif->execute([$admin['id'], 'Klaim baru untuk barang: ' . $item['item_name'], '/Nemu.id/admin/klaim.php']);
+    }
 }
 
 $_SESSION['flash_success'] = 'Klaim berhasil diajukan. Admin akan memproses.';

@@ -9,7 +9,8 @@ $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
 
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+// [AKSI]: Ambil kategori untuk filter pencarian.
+$categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 
 
 $results = [];
@@ -19,7 +20,7 @@ $queries = [];
 
 if (isset($_GET['search'])) {
     
-    
+    // [AKSI]: Susun query barang hilang bila status filter mengizinkan.
     if (empty($status) || $status == 'hilang') {
         $q1 = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, 
                l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status, l.user_id
@@ -37,7 +38,7 @@ if (isset($_GET['search'])) {
         $queries[] = $q1;
     }
 
-    
+    // [AKSI]: Susun query barang temuan bila status filter mengizinkan.
     if (empty($status) || $status == 'tersedia') {
         $q2 = "SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, 
                f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status, NULL AS user_id
@@ -55,7 +56,7 @@ if (isset($_GET['search'])) {
         $queries[] = $q2;
     }
 
-    
+    // [AKSI]: Jalankan UNION dari query yang aktif memakai prepared statement.
     if (!empty($queries)) {
         $sql = implode(" UNION ALL ", $queries) . " ORDER BY event_date DESC LIMIT 20";
         $stmt = $pdo->prepare($sql);

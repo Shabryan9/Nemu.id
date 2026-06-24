@@ -6,16 +6,23 @@ requireAdmin();
 
 $pdo = getDB();
 $filter = $_GET['filter'] ?? 'pending';
-$where = '';
-if ($filter === 'pending') $where = "WHERE c.status = 'pending'";
-elseif ($filter === 'disetujui') $where = "WHERE c.status = 'disetujui'";
-elseif ($filter === 'ditolak') $where = "WHERE c.status = 'ditolak'";
+$statusMap = [
+    'pending' => 'pending',
+    'disetujui' => 'disetujui',
+    'ditolak' => 'ditolak',
+];
+$statusFilter = $statusMap[$filter] ?? null;
+$where = $statusFilter ? 'WHERE c.status = ?' : '';
+$params = $statusFilter ? [$statusFilter] : [];
 
-$claims = $pdo->query("SELECT c.*, u.nama_lengkap AS claimant, f.item_name, f.status AS item_status 
-                       FROM claims c 
-                       JOIN users u ON c.claimant_user_id = u.id 
-                       JOIN found_items f ON c.found_item_id = f.id 
-                       $where ORDER BY c.created_at DESC")->fetchAll();
+// [AKSI]: Ambil klaim sesuai filter yang diizinkan.
+$stmt = $pdo->prepare("SELECT c.*, u.nama_lengkap AS claimant, f.item_name, f.status AS item_status
+                       FROM claims c
+                       JOIN users u ON c.claimant_user_id = u.id
+                       JOIN found_items f ON c.found_item_id = f.id
+                       $where ORDER BY c.created_at DESC");
+$stmt->execute($params);
+$claims = $stmt->fetchAll();
 
 $page_title = 'Manajemen Klaim';
 ?>

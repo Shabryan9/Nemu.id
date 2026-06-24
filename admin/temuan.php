@@ -6,15 +6,22 @@ requireAdmin();
 
 $pdo = getDB();
 $filter = $_GET['filter'] ?? 'pending';
-$where = '';
-if ($filter === 'pending') $where = "WHERE f.status = 'pending'";
-elseif ($filter === 'diverifikasi') $where = "WHERE f.status = 'tersedia'";
-elseif ($filter === 'ditolak') $where = "WHERE f.status = 'ditolak_admin'";
+$statusMap = [
+    'pending' => 'pending',
+    'diverifikasi' => 'tersedia',
+    'ditolak' => 'ditolak_admin',
+];
+$statusFilter = $statusMap[$filter] ?? null;
+$where = $statusFilter ? 'WHERE f.status = ?' : '';
+$params = $statusFilter ? [$statusFilter] : [];
 
-$items = $pdo->query("SELECT f.*, u.nama_lengkap AS finder_name 
-                      FROM found_items f 
-                      JOIN users u ON f.finder_user_id = u.id 
-                      $where ORDER BY f.created_at DESC")->fetchAll();
+// [AKSI]: Ambil laporan temuan sesuai filter yang diizinkan.
+$stmt = $pdo->prepare("SELECT f.*, u.nama_lengkap AS finder_name
+                       FROM found_items f
+                       JOIN users u ON f.finder_user_id = u.id
+                       $where ORDER BY f.created_at DESC");
+$stmt->execute($params);
+$items = $stmt->fetchAll();
 
 $page_title = 'Verifikasi Temuan';
 ?>

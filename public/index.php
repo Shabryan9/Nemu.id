@@ -2,20 +2,20 @@
 require_once __DIR__ . '/../config/connection.php';
 $pdo = getDB();
 
-// Statistik dinamis
-$total_tersedia = $pdo->query("SELECT COUNT(*) FROM found_items WHERE status IN ('tersedia','dalam_proses_klaim')")->fetchColumn();
-$laporan_aktif = $pdo->query("SELECT COUNT(*) FROM lost_items WHERE status = 'hilang'")->fetchColumn();
-$dikembalikan = $pdo->query("SELECT COUNT(*) FROM found_items WHERE status = 'dikembalikan'")->fetchColumn();
-// Persentase (hindari division by zero)
-$total_selesai = $pdo->query("SELECT COUNT(*) FROM found_items WHERE status IN ('dikembalikan','ditolak_admin','kadaluarsa')")->fetchColumn();
+// [AKSI]: Ambil statistik publik dengan prepared statement.
+$total_tersedia = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status IN ('tersedia','dalam_proses_klaim')");
+$laporan_aktif = dbFetchColumn("SELECT COUNT(*) FROM lost_items WHERE status = 'hilang'");
+$dikembalikan = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status = 'dikembalikan'");
+// [AKSI]: Hitung persentase keberhasilan dan hindari pembagian nol.
+$total_selesai = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status IN ('dikembalikan','ditolak_admin','kadaluarsa')");
 $persen_berhasil = $total_selesai > 0 ? round(($dikembalikan / $total_selesai) * 100) : 95;
 
-// Ambil 3 barang temuan terbaru untuk katalog
-$found_items = $pdo->query("SELECT f.*, c.name AS category_name
-                            FROM found_items f
-                            LEFT JOIN categories c ON f.category_id = c.id
-                            WHERE f.status = 'tersedia'
-                            ORDER BY f.created_at DESC LIMIT 3")->fetchAll();
+// [AKSI]: Ambil 3 barang temuan terbaru untuk katalog halaman depan.
+$found_items = dbFetchAll("SELECT f.*, c.name AS category_name
+                           FROM found_items f
+                           LEFT JOIN categories c ON f.category_id = c.id
+                           WHERE f.status = 'tersedia'
+                           ORDER BY f.created_at DESC LIMIT 3");
 
 $page_title = 'Beranda - Nemu.id';
 $body_class = '';

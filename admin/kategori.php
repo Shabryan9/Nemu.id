@@ -5,7 +5,8 @@ require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
 
 $pdo = getDB();
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+// [AKSI]: Ambil semua kategori untuk tabel manajemen.
+$categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 $page_title = 'Manajemen Kategori';
 ?>
 <!DOCTYPE html>
@@ -24,24 +25,27 @@ $page_title = 'Manajemen Kategori';
         <?php include 'sidebar.php'; ?>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
             <h2>Manajemen Kategori</h2>
-            <form action="/Nemu.id/process/admin/kategori-tambah.php" method="POST" class="row g-2 mb-4">
+            <form action="/Nemu.id/process/admin/kategori.php" method="POST" class="row g-2 mb-4">
+                <input type="hidden" name="action" value="create">
                 <div class="col-auto"><input type="text" name="name" class="form-control" placeholder="Nama Kategori" required></div>
                 <div class="col-auto"><button type="submit" class="btn btn-primary">Tambah</button></div>
             </form>
-            <table class="table table-bordered bg-white">
-                <thead><tr><th>Nama</th><th>Aksi</th></tr></thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-bordered bg-white">
+                    <thead><tr><th>Nama</th><th>Aksi</th></tr></thead>
+                    <tbody>
                     <?php foreach ($categories as $cat): ?>
                     <tr>
                         <td><?= htmlspecialchars($cat['name']) ?></td>
                         <td>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editCat<?= $cat['id'] ?>">Edit</button>
-                            <a href="/Nemu.id/process/admin/kategori-hapus.php?id=<?= $cat['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus kategori?')">Hapus</a>
+                            <a href="/Nemu.id/process/admin/kategori.php?action=delete&id=<?= $cat['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus kategori?')">Hapus</a>
                         </td>
                     </tr>
                     <div class="modal fade" id="editCat<?= $cat['id'] ?>" tabindex="-1">
                         <div class="modal-dialog"><div class="modal-content">
-                            <form action="/Nemu.id/process/admin/kategori-edit.php" method="POST">
+                            <form action="/Nemu.id/process/admin/kategori.php" method="POST">
+                                <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="id" value="<?= $cat['id'] ?>">
                                 <div class="modal-header"><h5>Edit Kategori</h5></div>
                                 <div class="modal-body">
@@ -52,8 +56,9 @@ $page_title = 'Manajemen Kategori';
                         </div></div>
                     </div>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 </div>

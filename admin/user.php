@@ -6,7 +6,8 @@ requireAdmin();
 
 $pdo = getDB();
 $current_admin_id = currentUserId();
-$users = $pdo->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll();
+// [AKSI]: Ambil semua user untuk tabel manajemen akun.
+$users = dbFetchAll("SELECT * FROM users ORDER BY created_at DESC");
 $error = $_SESSION['flash_error'] ?? null;
 $success = $_SESSION['flash_success'] ?? null;
 unset($_SESSION['flash_error'], $_SESSION['flash_success']);

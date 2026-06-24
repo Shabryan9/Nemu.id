@@ -11,8 +11,49 @@ $type   = $_GET['type'] ?? 'all';
 $status = $_GET['status'] ?? '';
 $search = $_GET['search'] ?? '';
 
-// Include file backend query (akan menghasilkan $items dan $total_items)
-include __DIR__ . '/../process/laporan-saya.php';
+// [AKSI]: Bangun query laporan pribadi sesuai filter user.
+$pdo = getDB();
+$user_id = currentUserId();
+$sqlLost = "SELECT 'lost' AS type, id, item_name, description, last_location AS location, lost_datetime AS event_date, photo, status, created_at
+            FROM lost_items WHERE user_id = :user_id_lost";
+$sqlFound = "SELECT 'found' AS type, id, item_name, description, found_location AS location, found_datetime AS event_date, photo, status, created_at
+             FROM found_items WHERE finder_user_id = :user_id_found";
+
+$parts = [];
+$params = [];
+
+// [AKSI]: Pilih sumber data berdasarkan jenis laporan yang diminta.
+if ($type === 'all' || $type === 'lost') {
+    $parts[] = $sqlLost;
+    $params['user_id_lost'] = $user_id;
+}
+if ($type === 'all' || $type === 'found') {
+    $parts[] = $sqlFound;
+    $params['user_id_found'] = $user_id;
+}
+
+$items = [];
+$total_items = 0;
+if (!empty($parts)) {
+    $unionSQL = implode(' UNION ALL ', $parts);
+    $finalSQL = "SELECT * FROM ($unionSQL) AS combined WHERE 1=1";
+
+    if (!empty($status)) {
+        $finalSQL .= " AND status = :status";
+        $params['status'] = $status;
+    }
+    if (!empty($search)) {
+        $finalSQL .= " AND item_name LIKE :search";
+        $params['search'] = "%$search%";
+    }
+
+    $finalSQL .= " ORDER BY created_at DESC";
+
+    $stmt = $pdo->prepare($finalSQL);
+    $stmt->execute($params);
+    $items = $stmt->fetchAll();
+    $total_items = count($items);
+}
 
 include __DIR__ . '/../includes/header_user.php';
 ?>
@@ -22,7 +63,7 @@ include __DIR__ . '/../includes/header_user.php';
     
     <!-- Filter Form -->
     <form method="GET" class="row g-3 mb-4 bg-white p-3 card-ui">
-        <div class="col-md-3">
+        <div class="col-12 col-md-3">
             <label class="form-label">Jenis Laporan</label>
             <select name="type" class="form-select">
                 <option value="all" <?= $type == 'all' ? 'selected' : '' ?>>Semua</option>
@@ -30,7 +71,7 @@ include __DIR__ . '/../includes/header_user.php';
                 <option value="found" <?= $type == 'found' ? 'selected' : '' ?>>Barang Temuan</option>
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-12 col-md-3">
             <label class="form-label">Status</label>
             <select name="status" class="form-select">
                 <option value="" <?= $status == '' ? 'selected' : '' ?>>Semua Status</option>
@@ -51,11 +92,11 @@ include __DIR__ . '/../includes/header_user.php';
                 </optgroup>
             </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
             <label class="form-label">Cari Nama Barang</label>
             <input type="text" name="search" class="form-control" placeholder="Kata kunci..." value="<?= htmlspecialchars($search) ?>">
         </div>
-        <div class="col-md-2 d-flex align-items-end">
+        <div class="col-12 col-md-2 d-flex align-items-end">
             <button type="submit" class="btn btn-navy w-100">Filter</button>
         </div>
     </form>
@@ -92,7 +133,7 @@ include __DIR__ . '/../includes/header_user.php';
                         <td><?= date('d M Y H:i', strtotime($item['event_date'])) ?></td>
                         <td>
                             <?php
-                            $status = $item['status'];
+                            $item_status = $item['status'];
                             $badgeClass = [
                                 'hilang' => 'bg-warning text-dark',
                                 'ditemukan_sendiri' => 'bg-secondary',
@@ -104,9 +145,9 @@ include __DIR__ . '/../includes/header_user.php';
                                 'ditolak_admin' => 'bg-danger',
                                 'kadaluarsa' => 'bg-light text-dark'
                             ];
-                            $badge = $badgeClass[$status] ?? 'bg-secondary';
+                            $badge = $badgeClass[$item_status] ?? 'bg-secondary';
                             ?>
-                            <span class="badge <?= $badge ?>"><?= htmlspecialchars($status) ?></span>
+                            <span class="badge <?= $badge ?>"><?= htmlspecialchars($item_status) ?></span>
                         </td>
                         <td>
                             <?php if ($item['type'] === 'found'): ?>
