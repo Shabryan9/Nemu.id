@@ -415,7 +415,7 @@ body {
    LOGIN PAGE
    ============================= */
 .login-section {
-  background-color: var(--color-cream-soft);
+  background-color: var(--bs-cream);
   display: flex;
   align-items: center;
   justify-content: center;
