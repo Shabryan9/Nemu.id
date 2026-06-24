@@ -19,24 +19,24 @@ $found_items = $found->fetchAll();
 
 // Klaim user
 $claims = $pdo->prepare("SELECT c.*, f.item_name AS found_item_name
-    FROM claims c
-    JOIN found_items f ON c.found_item_id = f.id
-    WHERE c.claimant_user_id = ?
-    ORDER BY c.created_at DESC");
+                         FROM claims c
+                         JOIN found_items f ON c.found_item_id = f.id
+                         WHERE c.claimant_user_id = ?
+                         ORDER BY c.created_at DESC");
 $claims->execute([$user_id]);
 $user_claims = $claims->fetchAll();
 
 // Katalog terbaru (barang temuan & hilang milik user lain)
 $catalog_query = $pdo->prepare("
     (SELECT
-        f.id, f.item_name, f.photo, f.found_location AS location, f.found_datetime AS item_date, f.created_at,
+        f.id, f.item_name, f.description, f.photo, f.found_location AS location, f.found_datetime AS item_date, f.created_at,
         c.name AS category_name, 'found' AS item_type
     FROM found_items f
     LEFT JOIN categories c ON f.category_id = c.id
     WHERE f.status = 'tersedia' AND f.finder_user_id <> ?)
     UNION ALL
     (SELECT
-        l.id, l.item_name, l.photo, l.last_location AS location, l.lost_datetime AS item_date, l.created_at,
+        l.id, l.item_name, l.description, l.photo, l.last_location AS location, l.lost_datetime AS item_date, l.created_at,
         c.name AS category_name, 'lost' AS item_type
     FROM lost_items l
     LEFT JOIN categories c ON l.category_id = c.id
@@ -47,7 +47,7 @@ $catalog_query = $pdo->prepare("
 $catalog_query->execute([$user_id, $user_id]);
 $catalog = $catalog_query->fetchAll();
 
-//ambil flash message dari session kalo ada
+// Ambil flash message dari session jika ada
 $success = $_SESSION['flash_success'] ?? null;
 $error   = $_SESSION['flash_error'] ?? null;
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
@@ -58,7 +58,7 @@ include __DIR__ . '/../includes/header_user.php';
 ?>
 
 <div class="container py-4">
-    <!-- flash message -->
+    <!-- Flash message -->
     <?php if ($error): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
@@ -120,6 +120,11 @@ include __DIR__ . '/../includes/header_user.php';
                     <small class="text-muted text-uppercase"><?= htmlspecialchars($item['category_name'] ?? 'Umum') ?></small>
                     <h5 class="card-title mt-1"><?= htmlspecialchars($item['item_name']) ?></h5>
                     <p class="card-text text-muted small"><?= htmlspecialchars($item['location']) ?> • <?= date('d M Y', strtotime($item['item_date'])) ?></p>
+                    
+                    <!-- Deskripsi HANYA untuk barang hilang -->
+                    <?php if ($item['item_type'] === 'lost'): ?>
+                        <p class="card-text small"><?= htmlspecialchars(mb_strimwidth($item['description'] ?? '', 0, 60, '...')) ?></p>
+                    <?php endif; ?>
                     
                     <?php if ($item['item_type'] === 'found'): ?>
                         <a href="/Nemu.id/user/detail-temuan.php?id=<?= $item['id'] ?>" class="btn btn-primary mt-auto">Lihat Detail</a>
