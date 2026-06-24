@@ -19,6 +19,7 @@ $found_items = $pdo->query("SELECT f.*, c.name AS category_name
 
 $page_title = 'Beranda - Nemu.id';
 $body_class = '';
+$hide_home_nav = true;
 include __DIR__ . '/../includes/header.php';
 ?>
 
