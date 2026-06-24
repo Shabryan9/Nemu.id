@@ -9,18 +9,16 @@ $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
 
-// [AKSI]: Ambil kategori untuk filter pencarian.
+// Ambil daftar kategori untuk dropdown
 $categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
-
 
 $results = [];
 $params = [];
 $queries = [];
 
-
-if (isset($_GET['search'])) {
-    
-    // [AKSI]: Susun query barang hilang bila status filter mengizinkan.
+// Gunakan parameter 'cari' sebagai penanda submit form
+if (isset($_GET['cari'])) {
+    // Susun query barang hilang jika status filter mengizinkan
     if (empty($status) || $status == 'hilang') {
         $q1 = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, 
                l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status, l.user_id
@@ -38,7 +36,7 @@ if (isset($_GET['search'])) {
         $queries[] = $q1;
     }
 
-    // [AKSI]: Susun query barang temuan bila status filter mengizinkan.
+    // Susun query barang temuan jika status filter mengizinkan
     if (empty($status) || $status == 'tersedia') {
         $q2 = "SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, 
                f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status, NULL AS user_id
@@ -56,7 +54,7 @@ if (isset($_GET['search'])) {
         $queries[] = $q2;
     }
 
-    // [AKSI]: Jalankan UNION dari query yang aktif memakai prepared statement.
+    // Jalankan UNION query jika ada bagian yang aktif
     if (!empty($queries)) {
         $sql = implode(" UNION ALL ", $queries) . " ORDER BY event_date DESC LIMIT 20";
         $stmt = $pdo->prepare($sql);
@@ -64,6 +62,7 @@ if (isset($_GET['search'])) {
         $results = $stmt->fetchAll();
     }
 }
+
 $page_title = 'Pencarian';
 $active_page = 'cari';
 include __DIR__ . '/../includes/header_user.php';
@@ -72,6 +71,9 @@ include __DIR__ . '/../includes/header_user.php';
 <div class="container py-4">
     <h2 class="mb-4">Cari Barang Hilang atau Temuan</h2>
     <form method="GET" class="row g-3 mb-4">
+        <!-- [PERBAIKAN] Hidden input penanda submit -->
+        <input type="hidden" name="cari" value="1">
+        
         <div class="col-md-4">
             <input type="text" name="keyword" class="form-control" placeholder="Kata kunci..." value="<?= htmlspecialchars($keyword) ?>">
         </div>
@@ -91,7 +93,8 @@ include __DIR__ . '/../includes/header_user.php';
             </select>
         </div>
         <div class="col-md-2">
-            <button type="submit" name="search" class="btn btn-navy w-100">Cari</button>
+            <!-- Tombol tanpa name agar nilai tidak masuk URL -->
+            <button type="submit" class="btn btn-navy w-100">Cari</button>
         </div>
     </form>
 
@@ -126,7 +129,7 @@ include __DIR__ . '/../includes/header_user.php';
             </div>
             <?php endforeach; ?>
         </div>
-    <?php elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['keyword']) || isset($_GET['category']))) : ?>
+    <?php elseif (isset($_GET['cari'])): ?>
         <div class="alert alert-info">Tidak ada hasil ditemukan.</div>
     <?php endif; ?>
 </div>

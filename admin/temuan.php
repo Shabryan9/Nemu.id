@@ -15,10 +15,11 @@ $statusFilter = $statusMap[$filter] ?? null;
 $where = $statusFilter ? 'WHERE f.status = ?' : '';
 $params = $statusFilter ? [$statusFilter] : [];
 
-// [AKSI]: Ambil laporan temuan sesuai filter yang diizinkan.
-$stmt = $pdo->prepare("SELECT f.*, u.nama_lengkap AS finder_name
+
+$stmt = $pdo->prepare("SELECT f.*, u.nama_lengkap AS finder_name, c.name AS category_name
                        FROM found_items f
                        JOIN users u ON f.finder_user_id = u.id
+                       LEFT JOIN categories c ON f.category_id = c.id
                        $where ORDER BY f.created_at DESC");
 $stmt->execute($params);
 $items = $stmt->fetchAll();
@@ -78,6 +79,7 @@ $page_title = 'Verifikasi Temuan';
                                         </div>
                                         <div class="col-md-6">
                                             <p><strong>Nama:</strong> <?= htmlspecialchars($item['item_name']) ?></p>
+                                            <!-- Kategori sekarang muncul karena sudah di-query -->
                                             <p><strong>Kategori:</strong> <?= htmlspecialchars($item['category_name'] ?? '-') ?></p>
                                             <p><strong>Deskripsi:</strong> <?= nl2br(htmlspecialchars($item['description'])) ?></p>
                                             <p><strong>Lokasi:</strong> <?= htmlspecialchars($item['found_location']) ?></p>
