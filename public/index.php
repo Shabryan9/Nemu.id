@@ -57,14 +57,14 @@ include __DIR__ . '/../includes/header.php';
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="stats-card">
                     <div class="stats-label">BARANG DITEMUKAN</div>
-                    <h2 class="stats-number"><?= $total_tersedia ?></h2>
+                    <h2 class="stats-number"><?= $total_tersedia ?></h2><br><br>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="stats-card">
                     <div class="stats-label">LAPORAN AKTIF</div>
                     <h2 class="stats-number"><?= $laporan_aktif ?></h2>
-                    <p class="stats-time mt-2"> laporan operatif, fitur yang lain</p>
+                    <p class="stats-time mt-2"> laporan operatif, fitur yang lain <br><br></p>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@ include __DIR__ . '/../includes/header.php';
                 <div class="step-card">
                     <div class="step-icon"><i class="bi bi-hand-thumbs-up-fill"></i></div>
                     <h5 class="step-title">3. Pengembalian</h5>
-                    <p class="step-desc">Verifikasi kepemilikan melalui keamanan digital Anda.</p>
+                    <p class="step-desc">Verifikasi kepemilikan melalui keamanan digital Anda.<br><br></p>
                 </div>
             </div>
         </div>
