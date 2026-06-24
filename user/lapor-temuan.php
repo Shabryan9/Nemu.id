@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 requireUser();
 
 $pdo = getDB();
-// [AKSI]: Ambil daftar kategori untuk pilihan laporan temuan.
+//ambil daftar kategori untuk pilihan laporan temuan.
 $categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 $page_title = 'Lapor Barang Temuan';
 $active_page = 'lapor-temuan';
@@ -64,8 +64,8 @@ include __DIR__ . '/../includes/header_user.php';
                 <button type="submit" class="btn btn-success w-100">Kirim Laporan</button>
             </form>
         </div>
+
         <div class="col-12 col-lg-4 mt-4 mt-lg-0">
-            <!-- Card 1: Status Awal -->
             <div class="card card-ui mb-3">
                 <div class="card-body">
                     <h6 class="text-muted">STATUS AWAL</h6>
@@ -74,7 +74,6 @@ include __DIR__ . '/../includes/header_user.php';
                 </div>
             </div>
 
-            <!-- Card 2: Privasi Terjamin -->
             <div class="card card-ui mb-3 border-success">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2">
@@ -88,7 +87,6 @@ include __DIR__ . '/../includes/header_user.php';
                 </div>
             </div>
 
-            <!-- Card 3: Panduan Pelaporan -->
             <div class="card card-ui">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2">

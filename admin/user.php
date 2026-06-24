@@ -6,7 +6,7 @@ requireAdmin();
 
 $pdo = getDB();
 $current_admin_id = currentUserId();
-// [AKSI]: Ambil semua user untuk tabel manajemen akun.
+//Ambil semua user untuk tabel manajemen akun.
 $users = dbFetchAll("SELECT * FROM users ORDER BY created_at DESC");
 $error = $_SESSION['flash_error'] ?? null;
 $success = $_SESSION['flash_success'] ?? null;

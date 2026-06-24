@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
 
 $pdo = getDB();
-// [AKSI]: Ambil semua kategori untuk tabel manajemen.
+//ambil semua kategori untuk tabel manajemen.
 $categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 $page_title = 'Manajemen Kategori';
 ?>

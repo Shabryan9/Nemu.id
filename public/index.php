@@ -2,20 +2,20 @@
 require_once __DIR__ . '/../config/connection.php';
 $pdo = getDB();
 
-// [AKSI]: Ambil statistik publik dengan prepared statement.
+//ambil statistik publik dengan prepared statement.
 $total_tersedia = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status IN ('tersedia','dalam_proses_klaim')");
 $laporan_aktif = dbFetchColumn("SELECT COUNT(*) FROM lost_items WHERE status = 'hilang'");
 $dikembalikan = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status = 'dikembalikan'");
-// [AKSI]: Hitung persentase keberhasilan dan hindari pembagian nol.
+//itung persentase keberhasilan dan hindari pembagian nol.
 $total_selesai = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status IN ('dikembalikan','ditolak_admin','kadaluarsa')");
 $persen_berhasil = $total_selesai > 0 ? round(($dikembalikan / $total_selesai) * 100) : 95;
 
-// [AKSI]: Ambil 3 barang temuan terbaru untuk katalog halaman depan.
+//ambil 3 barang temuan terbaru untuk katalog halaman depan.
 $found_items = dbFetchAll("SELECT f.*, c.name AS category_name
-                           FROM found_items f
-                           LEFT JOIN categories c ON f.category_id = c.id
-                           WHERE f.status = 'tersedia'
-                           ORDER BY f.created_at DESC LIMIT 3");
+    FROM found_items f
+    LEFT JOIN categories c ON f.category_id = c.id
+    WHERE f.status = 'tersedia'
+    ORDER BY f.created_at DESC LIMIT 3");
 
 $page_title = 'Beranda - Nemu.id';
 $body_class = '';
@@ -104,7 +104,7 @@ include __DIR__ . '/../includes/header.php';
     </div>
 </section>
 
-<!-- KATALOG TERBARU -->
+<!-- katalog baru -->
 <?php if (count($found_items) > 0): ?>
 <section class="py-5">
     <div class="container-lg px-4">

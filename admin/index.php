@@ -10,12 +10,12 @@ $pending_klaim  = dbFetchColumn("SELECT COUNT(*) FROM claims WHERE status = 'pen
 $dikembalikan   = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status = 'dikembalikan'");
 $total_user     = dbFetchColumn("SELECT COUNT(*) FROM users");
 
-// [AKSI]: Ambil 5 klaim terbaru untuk ringkasan aktivitas admin.
+// ambil 5 klaim terbaru untuk ringkasan aktivitas admin.
 $recent = dbFetchAll("SELECT c.id, c.created_at, u.nama_lengkap AS claimant, f.item_name
-                      FROM claims c
-                      JOIN users u ON c.claimant_user_id = u.id
-                      JOIN found_items f ON c.found_item_id = f.id
-                      ORDER BY c.created_at DESC LIMIT 5");
+    FROM claims c
+    JOIN users u ON c.claimant_user_id = u.id
+    JOIN found_items f ON c.found_item_id = f.id
+    ORDER BY c.created_at DESC LIMIT 5");
 
 $page_title = 'Admin Dashboard';
 ?>

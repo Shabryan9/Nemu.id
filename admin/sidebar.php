@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
 
 $pdo = getDB();
-// [AKSI]: Hitung jumlah pending untuk badge navigasi admin.
+//Hitung jumlah pending untuk badge navigasi admin.
 $pending_temuan = dbFetchColumn("SELECT COUNT(*) FROM found_items WHERE status = 'pending'");
 $pending_klaim  = dbFetchColumn("SELECT COUNT(*) FROM claims WHERE status = 'pending'");
 ?>

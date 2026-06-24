@@ -60,7 +60,7 @@ $stmt->execute([$found_item_id, $user_id, $claim_reason, $evidenceName]);
 $update = $pdo->prepare("UPDATE found_items SET status = 'dalam_proses_klaim' WHERE id = ?");
 $update->execute([$found_item_id]);
 
-// [AKSI]: Kirim notifikasi klaim baru ke seluruh admin.
+//Kirim notifikasi klaim baru ke seluruh admin.
 $admins = dbFetchAll("SELECT id FROM users WHERE role = 'admin'");
 if ($admins) {
     foreach ($admins as $admin) {

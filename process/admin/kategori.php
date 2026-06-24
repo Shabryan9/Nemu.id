@@ -3,9 +3,8 @@ require_once __DIR__ . '/../../config/connection.php';
 require_once __DIR__ . '/../../includes/auth.php';
 requireAdmin();
 
-/**
- * Mengarahkan kembali ke halaman manajemen kategori.
- */
+
+//Mengarahkan kembali ke halaman manajemen kategori.
 function redirectKategori(): void {
     header('Location: /Nemu.id/admin/kategori.php');
     exit;
@@ -14,7 +13,7 @@ function redirectKategori(): void {
 $pdo = getDB();
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
-// [AKSI]: Tambahkan kategori baru dari form admin.
+//tambain kategori baru dari form admin.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
     $name = trim($_POST['name'] ?? '');
 
@@ -25,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
     redirectKategori();
 }
 
-// [AKSI]: Perbarui nama kategori dari modal edit.
+//Perbarui nama kategori dari modal edit.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'update') {
     $id = (int) ($_POST['id'] ?? 0);
     $name = trim($_POST['name'] ?? '');
@@ -37,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'update') {
     redirectKategori();
 }
 
-// [AKSI]: Hapus kategori setelah relasi laporan diamankan menjadi kategori umum.
+//Hapus kategori setelah relasi laporan diamankan menjadi kategori umum.
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'delete') {
     $id = (int) ($_GET['id'] ?? 0);
 

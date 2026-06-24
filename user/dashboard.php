@@ -19,10 +19,10 @@ $found_items = $found->fetchAll();
 
 // Klaim user
 $claims = $pdo->prepare("SELECT c.*, f.item_name AS found_item_name
-                         FROM claims c
-                         JOIN found_items f ON c.found_item_id = f.id
-                         WHERE c.claimant_user_id = ?
-                         ORDER BY c.created_at DESC");
+    FROM claims c
+    JOIN found_items f ON c.found_item_id = f.id
+    WHERE c.claimant_user_id = ?
+    ORDER BY c.created_at DESC");
 $claims->execute([$user_id]);
 $user_claims = $claims->fetchAll();
 
@@ -46,13 +46,26 @@ $catalog_query = $pdo->prepare("
 ");
 $catalog_query->execute([$user_id, $user_id]);
 $catalog = $catalog_query->fetchAll();
- 
+
+//ambil flash message dari session kalo ada
+$success = $_SESSION['flash_success'] ?? null;
+$error   = $_SESSION['flash_error'] ?? null;
+unset($_SESSION['flash_success'], $_SESSION['flash_error']);
+
 $page_title = 'Dashboard - ' . htmlspecialchars($user_name);
 $active_page = 'dashboard';
 include __DIR__ . '/../includes/header_user.php';
 ?>
 
 <div class="container py-4">
+    <!-- flash message -->
+    <?php if ($error): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+    <?php if ($success): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+
     <div class="hero p-4 p-md-5 mb-4 d-flex flex-column flex-md-row align-items-start justify-content-between">
         <div>
             <h1 class="hero-title">Selamat Datang, <?= htmlspecialchars($user_name) ?></h1>

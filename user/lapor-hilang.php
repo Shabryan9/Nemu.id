@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 requireUser();
 
 $pdo = getDB();
-// [AKSI]: Ambil daftar kategori untuk pilihan laporan hilang.
+//ambil daftar kategori untuk pilihan laporan hilang.
 $categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 $page_title = 'Lapor Barang Hilang';
 $active_page = 'lapor-hilang';

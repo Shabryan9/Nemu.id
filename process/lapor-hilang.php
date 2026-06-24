@@ -17,14 +17,13 @@ $description  = trim($_POST['description'] ?? '');
 $last_location = trim($_POST['last_location'] ?? '');
 $lost_datetime = $_POST['lost_datetime'] ?? date('Y-m-d H:i:s');
 
-// Validasi sederhana
 if (empty($item_name) || empty($description) || empty($last_location)) {
     $_SESSION['flash_error'] = 'Semua field wajib diisi.';
     header('Location: /Nemu.id/user/lapor-hilang.php');
     exit;
 }
 
-// Upload foto (opsional)
+//apload foto (opsional)
 $photoName = null;
 if (!empty($_FILES['photo']['name'])) {
     $targetDir = __DIR__ . '/../assets/uploads/items/';
@@ -39,7 +38,7 @@ if (!empty($_FILES['photo']['name'])) {
 }
 
 $stmt = $pdo->prepare("INSERT INTO lost_items (user_id, category_id, item_name, description, last_location, lost_datetime, photo, status)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, 'hilang')");
+    VALUES (?, ?, ?, ?, ?, ?, ?, 'hilang')");
 $stmt->execute([$user_id, $category_id, $item_name, $description, $last_location, $lost_datetime, $photoName]);
 
 $_SESSION['flash_success'] = 'Laporan berhasil dikirim.';

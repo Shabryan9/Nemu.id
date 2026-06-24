@@ -27,33 +27,30 @@ function getDB() {
     return $pdo;
 }
 
-/**
- * Menjalankan prepared statement dan mengembalikan semua baris.
- */
+
+//jalanin prepared statement dan mengembalikan semua baris.
 function dbFetchAll(string $sql, array $params = []): array {
     $stmt = getDB()->prepare($sql);
     $stmt->execute($params);
     return $stmt->fetchAll();
 }
 
-/**
- * Menjalankan prepared statement dan mengembalikan satu nilai kolom.
- */
+
+//jalanin prepared statement dan mengembalikan satu nilai kolom.
 function dbFetchColumn(string $sql, array $params = []) {
     $stmt = getDB()->prepare($sql);
     $stmt->execute($params);
     return $stmt->fetchColumn();
 }
 
-/**
- * Menjalankan prepared statement untuk operasi tulis.
- */
+
+//jalanin prepared statement untuk operasi tulis.
 function dbExecute(string $sql, array $params = []): bool {
     $stmt = getDB()->prepare($sql);
     return $stmt->execute($params);
 }
 
-// [AKSI]: Mulai session aplikasi dengan folder session lokal jika belum aktif.
+//mulai session aplikasi dengan folder session lokal jika belum aktif.
 if (session_status() === PHP_SESSION_NONE) {
     $session_path = __DIR__ . '/../sessions';
     if (!is_dir($session_path)) {

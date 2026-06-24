@@ -9,22 +9,22 @@ $keyword = $_GET['keyword'] ?? '';
 $category = $_GET['category'] ?? '';
 $status = $_GET['status'] ?? '';
 
-// Ambil daftar kategori untuk dropdown
+//ambil daftar kategori untuk dropdown
 $categories = dbFetchAll("SELECT * FROM categories ORDER BY name");
 
 $results = [];
 $params = [];
 $queries = [];
 
-// Gunakan parameter 'cari' sebagai penanda submit form
+//pake parameter 'cari' sebagai penanda submit form
 if (isset($_GET['cari'])) {
-    // Susun query barang hilang jika status filter mengizinkan
+    //susun query barang hilang jika status filter mengizinkan
     if (empty($status) || $status == 'hilang') {
         $q1 = "SELECT 'lost' AS type, l.id, l.item_name, l.description, l.last_location AS location, 
-               l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status, l.user_id
-               FROM lost_items l
-               LEFT JOIN categories c ON l.category_id = c.id
-               WHERE l.status = 'hilang'";
+            l.lost_datetime AS event_date, l.photo, c.name AS category_name, l.status, l.user_id
+            FROM lost_items l
+            LEFT JOIN categories c ON l.category_id = c.id
+            WHERE l.status = 'hilang'";
         if (!empty($keyword)) {
             $q1 .= " AND (l.item_name LIKE ? OR l.description LIKE ?)";
             $params[] = "%$keyword%"; $params[] = "%$keyword%";
@@ -36,13 +36,13 @@ if (isset($_GET['cari'])) {
         $queries[] = $q1;
     }
 
-    // Susun query barang temuan jika status filter mengizinkan
+    //susun query barang temuan jika status filter mengizinkan
     if (empty($status) || $status == 'tersedia') {
         $q2 = "SELECT 'found' AS type, f.id, f.item_name, f.description, f.found_location AS location, 
-               f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status, NULL AS user_id
-               FROM found_items f
-               LEFT JOIN categories c ON f.category_id = c.id
-               WHERE f.status = 'tersedia'";
+            f.found_datetime AS event_date, f.photo, c.name AS category_name, f.status, NULL AS user_id
+            FROM found_items f
+            LEFT JOIN categories c ON f.category_id = c.id
+            WHERE f.status = 'tersedia'";
         if (!empty($keyword)) {
             $q2 .= " AND (f.item_name LIKE ? OR f.description LIKE ?)";
             $params[] = "%$keyword%"; $params[] = "%$keyword%";

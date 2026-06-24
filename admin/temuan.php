@@ -17,10 +17,10 @@ $params = $statusFilter ? [$statusFilter] : [];
 
 
 $stmt = $pdo->prepare("SELECT f.*, u.nama_lengkap AS finder_name, c.name AS category_name
-                       FROM found_items f
-                       JOIN users u ON f.finder_user_id = u.id
-                       LEFT JOIN categories c ON f.category_id = c.id
-                       $where ORDER BY f.created_at DESC");
+    FROM found_items f
+    JOIN users u ON f.finder_user_id = u.id
+    LEFT JOIN categories c ON f.category_id = c.id
+    $where ORDER BY f.created_at DESC");
 $stmt->execute($params);
 $items = $stmt->fetchAll();
 

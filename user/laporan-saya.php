@@ -6,12 +6,12 @@ require_once __DIR__ . '/../config/connection.php';
 require_once __DIR__ . '/../includes/auth.php';
 requireUser();
 
-// Definisikan variabel filter dengan default dari GET
+//ngebuat variabel filter dengan default dari GET
 $type   = $_GET['type'] ?? 'all';
 $status = $_GET['status'] ?? '';
 $search = $_GET['search'] ?? '';
 
-// [AKSI]: Bangun query laporan pribadi sesuai filter user.
+//bangun query laporan pribadi sesuai filter user.
 $pdo = getDB();
 $user_id = currentUserId();
 $sqlLost = "SELECT 'lost' AS type, id, item_name, description, last_location AS location, lost_datetime AS event_date, photo, status, created_at
@@ -22,7 +22,7 @@ $sqlFound = "SELECT 'found' AS type, id, item_name, description, found_location 
 $parts = [];
 $params = [];
 
-// [AKSI]: Pilih sumber data berdasarkan jenis laporan yang diminta.
+//Pilih sumber data berdasarkan jenis laporan yang diminta.
 if ($type === 'all' || $type === 'lost') {
     $parts[] = $sqlLost;
     $params['user_id_lost'] = $user_id;

@@ -17,10 +17,10 @@ $params = $statusFilter ? [$statusFilter] : [];
 
 // [AKSI]: Ambil klaim sesuai filter yang diizinkan.
 $stmt = $pdo->prepare("SELECT c.*, u.nama_lengkap AS claimant, f.item_name, f.status AS item_status
-                       FROM claims c
-                       JOIN users u ON c.claimant_user_id = u.id
-                       JOIN found_items f ON c.found_item_id = f.id
-                       $where ORDER BY c.created_at DESC");
+    FROM claims c
+    JOIN users u ON c.claimant_user_id = u.id
+    JOIN found_items f ON c.found_item_id = f.id
+    $where ORDER BY c.created_at DESC");
 $stmt->execute($params);
 $claims = $stmt->fetchAll();
 

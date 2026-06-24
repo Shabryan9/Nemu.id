@@ -39,7 +39,7 @@ include __DIR__ . '/../includes/header.php';
             <?php endif; ?>
 
             <form method="POST" action="/Nemu.id/process/login.php">
-                <!-- Hidden input: dari halaman user -->
+                <!-- Hidden input dari halaman user -->
                 <input type="hidden" name="login_as" value="user">
 
                 <div class="form-group">
