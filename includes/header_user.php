@@ -78,9 +78,6 @@ if (isset($_SESSION['user'])) {
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <li><span class="dropdown-item-text fw-bold"><?= htmlspecialchars($user_name) ?></span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <?php if (isAdmin()): ?>
-                            <li><a class="dropdown-item" href="/Nemu.id/admin/index.php">Panel Admin</a></li>
-                        <?php endif; ?>
                         <li><a class="dropdown-item logout-link" href="/Nemu.id/process/logout.php">Keluar</a></li>
                     </ul>
                 </div>

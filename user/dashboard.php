@@ -121,7 +121,6 @@ include __DIR__ . '/../includes/header_user.php';
                     <h5 class="card-title mt-1"><?= htmlspecialchars($item['item_name']) ?></h5>
                     <p class="card-text text-muted small"><?= htmlspecialchars($item['location']) ?> • <?= date('d M Y', strtotime($item['item_date'])) ?></p>
                     
-                    <!-- Deskripsi HANYA untuk barang hilang -->
                     <?php if ($item['item_type'] === 'lost'): ?>
                         <p class="card-text small"><?= htmlspecialchars(mb_strimwidth($item['description'] ?? '', 0, 60, '...')) ?></p>
                     <?php endif; ?>
